@@ -1,0 +1,560 @@
+@import "tailwindcss";
+
+/* Oryn - Bioluminescence Deep Ocean Theme */
+@theme {
+  /* Core Color Palette */
+  --color-background: #020617;
+  --color-primary: #06B6D4;
+  --color-surface: #0F172A;
+
+  /* Extended Palette */
+  --color-primary-light: #22D3EE;
+  --color-primary-dark: #0891B2;
+  --color-primary-glow: rgba(6, 182, 212, 0.5);
+
+  /* Text Colors */
+  --color-text-primary: #F8FAFC;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted: #64748B;
+
+  /* Accent Colors */
+  --color-accent-cyan: #06B6D4;
+  --color-accent-teal: #14B8A6;
+  --color-accent-blue: #3B82F6;
+
+  /* Surface Variants */
+  --color-surface-raised: #1E293B;
+  --color-surface-overlay: rgba(15, 23, 42, 0.8);
+
+  /* Gradients */
+  --gradient-glow: linear-gradient(135deg, #06B6D4 0%, #14B8A6 50%, #3B82F6 100%);
+  --gradient-surface: linear-gradient(180deg, #0F172A 0%, #020617 100%);
+
+  /* Shadows */
+  --shadow-glow: 0 0 40px rgba(6, 182, 212, 0.3);
+  --shadow-glow-intense: 0 0 80px rgba(6, 182, 212, 0.5);
+
+  /* Animation Timing */
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Selection Style */
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-raised);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-dark);
+}
+
+/* Glow Effect Utility */
+.glow {
+  box-shadow: var(--shadow-glow);
+}
+
+.glow-intense {
+  box-shadow: var(--shadow-glow-intense);
+}
+
+/* Bioluminescent Pulse Animation */
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    filter: brightness(1.2);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Glassmorphism Effect */
+.glass {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.glass-border {
+  border: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+.glass-border:hover {
+  border-color: rgba(6, 182, 212, 0.4);
+}
+
+/* Combined glass card utility */
+.glass-card {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(6, 182, 212, 0.4);
+  background: rgba(15, 23, 42, 0.7);
+}
+
+/* ========================================
+   About Me Section
+   ======================================== */
+.about-section {
+  padding: 6rem 2rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(6, 182, 212, 0.02) 50%, transparent 100%);
+}
+
+.about-container {
+  max-width: 48rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-title {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 2.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+}
+
+.about-body {
+  text-align: left;
+}
+
+.about-paragraph {
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  line-height: 1.9;
+  color: var(--color-text-secondary);
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+}
+
+.about-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+/* ========================================
+   Wishlist Section
+   ======================================== */
+.wishlist-section {
+  padding: 6rem 2rem;
+  background: var(--color-background);
+}
+
+.wishlist-container {
+  max-width: 42rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.wishlist-title {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+}
+
+.wishlist-form {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.wishlist-textarea {
+  width: 100%;
+  max-width: 32rem;
+  min-height: 120px;
+  padding: 1rem 1.25rem;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(71, 85, 105, 0.5);
+  border-radius: 0.75rem;
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  font-family: inherit;
+  line-height: 1.6;
+  resize: vertical;
+  transition: all 0.3s ease;
+}
+
+.wishlist-textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.wishlist-textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2),
+    0 0 20px rgba(6, 182, 212, 0.15);
+}
+
+.wishlist-textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.wishlist-submit-btn {
+  padding: 0.875rem 2rem;
+  background: var(--color-primary);
+  color: var(--color-background);
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+  min-width: 140px;
+}
+
+.wishlist-submit-btn:hover:not(:disabled) {
+  background: var(--color-primary-light);
+  box-shadow: 0 0 40px rgba(6, 182, 212, 0.6);
+  transform: translateY(-2px);
+}
+
+.wishlist-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Loading animation */
+.wishlist-loading {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-background);
+  animation: loadingBounce 1.4s infinite ease-in-out both;
+}
+
+.loading-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.loading-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+.loading-dot:nth-child(3) {
+  animation-delay: 0s;
+}
+
+@keyframes loadingBounce {
+
+  0%,
+  80%,
+  100% {
+    transform: scale(0.6);
+    opacity: 0.5;
+  }
+
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Success message */
+.wishlist-success {
+  margin-top: 2.5rem;
+  padding: 2rem;
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 1rem;
+  max-width: 32rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.success-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.success-message {
+  font-size: 1.1rem;
+  color: var(--color-text-primary);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.wishlist-item:hover {
+  border-color: rgba(6, 182, 212, 0.3);
+  transform: translateX(4px);
+}
+
+/* ========================================
+   Call to Action Section
+   ======================================== */
+.cta-section {
+  padding: 6rem 2rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(6, 182, 212, 0.05) 50%, transparent 100%);
+}
+
+.cta-container {
+  max-width: 36rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cta-title {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.cta-subtitle {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 2rem;
+}
+
+.cta-form {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cta-input {
+  flex: 1;
+  min-width: 200px;
+  max-width: 300px;
+  padding: 0.875rem 1.25rem;
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.cta-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+}
+
+.cta-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.cta-button {
+  padding: 0.875rem 2rem;
+  background: var(--color-primary);
+  color: var(--color-background);
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+}
+
+.cta-button:hover {
+  background: var(--color-primary-light);
+  box-shadow: 0 0 40px rgba(6, 182, 212, 0.6);
+  transform: translateY(-2px);
+}
+
+.cta-button:active {
+  transform: translateY(0);
+}
+
+/* ========================================
+   Footer Section
+   ======================================== */
+.footer-section {
+  padding: 3rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-container {
+  max-width: 80rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.social-links-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 24rem;
+}
+
+.social-link-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.social-link-item:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateX(4px);
+}
+
+.social-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: rgba(6, 182, 212, 0.1);
+  color: var(--color-primary);
+}
+
+.social-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.social-label {
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+/* Static email display (not clickable) */
+.social-link-static {
+  cursor: text;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.social-link-static:hover {
+  transform: none;
+}
+
+.social-link-static .social-icon-wrapper {
+  margin-bottom: 0.25rem;
+}
+
+.email-address {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  user-select: all;
+}
+
+.footer-copyright {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin-top: 1rem;
+}
+
+/* Wishlist description */
+.wishlist-description {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+/* CTA description */
+.cta-description {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.7;
+  max-width: 32rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Error messages */
+.wishlist-error,
+.cta-error {
+  color: #f87171;
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+
+/* CTA loading animation */
+.cta-loading {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CTA success state */
+.cta-success {
+  margin-top: 1.5rem;
+  padding: 2rem;
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 1rem;
+  max-width: 28rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Shared disabled input styles */
+.cta-input:disabled,
+.cta-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
