@@ -16,8 +16,8 @@
             "title": "Upcoming products",
             "deepflow": {
                 "name": "DeepFlow",
-                "slogan": "AI-automated shielding based on your real-time focus.",
-                "description": "Your willpower is limited. DeepFlow acts as a dynamic digital shield. By analyzing your cognitive load and fatigue levels via camera and usage patterns, it automatically intercepts notifications and blocks distracting apps when you enter a flow state. It's not a rigid timer; it's a gatekeeper that ensures your best thinking happens in a pristine environment."
+                "slogan": "Let your digital environment adapt to your focus frequency.",
+                "description": "DeepFlow utilizes 'Context Awareness' technology to recognize your **Deep Work patterns**. When you are immersed in code or design, it identifies the rhythm of your workflow. Without manual setup, it automatically raises a digital barrier against irrelevant noise. It safeguards your efficiency while strictly respecting your privacy—processing data locally to ensure your flow state remains as secure and free as your data."
             },
             "synapse": {
                 "name": "Synapse",
@@ -64,8 +64,8 @@
             "title": "即將推出的產品",
             "deepflow": {
                 "name": "DeepFlow｜深度流",
-                "slogan": "基於您當下專注力的 AI 自動屏蔽系統。",
-                "description": "您的意志力是有限的，不該浪費在抵抗通知上。DeepFlow 是一款動態的數位防護罩。它透過電腦鏡頭與操作行為，即時分析您的認知負荷與生理疲勞。當偵測到您進入心流狀態時，它會自動攔截所有通訊軟體通知，並鎖定令人分心的網站。這不是死板的番茄鐘，而是一個會讀空氣的守門員，確保您的每一次思考，都在最乾淨的環境中發生。"
+                "slogan": "讓數位環境，自動適應您的專注頻率。",
+                "description": "DeepFlow 採用先進的情境感知技術。當您沉浸於代碼或設計稿時，它能識別這種**深度工作模式**的獨特節奏。無需您手動設定，系統便會自動築起數位圍牆，將不相關的干擾溫柔地隔絕在外。這是一場不僅守護效率，更尊重隱私的體驗——所有數據皆在本地運算，讓您的心流與數據一樣，安全且自由。"
             },
             "synapse": {
                 "name": "Synapse｜思維突觸",
