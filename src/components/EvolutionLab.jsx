@@ -157,26 +157,77 @@ export function EvolutionLab() {
                 )}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
-                    {sortedFeatures.map((feat, index) => (
-                        <motion.div key={feat.id} layout initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="glass-card rounded-2xl p-6 flex flex-col justify-between group border border-white/5 hover:border-primary/30 transition-all">
-                            <div>
-                                <div className="flex justify-between items-start mb-4">
-                                    <span className={`text-xs font-mono px-2 py-1 rounded ${index < 3 ? 'bg-primary/20 text-primary' : 'bg-white/5 text-text-muted'}`}>RANK #{index + 1}</span>
-                                    <span className="text-2xl font-bold font-mono">{safeVotes[feat.id] || 0}</span>
+                    {sortedFeatures.map((feat, index) => {
+                        const isRank1 = index === 0
+                        const isTop3 = index < 3
+
+                        return (
+                            <motion.div
+                                key={feat.id}
+                                layout
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                viewport={{ once: true }}
+                                // Keep the STATIC stable style (No animation, No scale)
+                                className={`
+                                    glass-card rounded-2xl p-6 flex flex-col justify-between group transition-all relative overflow-hidden border
+                                    ${isRank1
+                                        ? 'bg-[#020617] border-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.3)] z-10'
+                                        : 'bg-surface/30 hover:border-primary/30 border-white/5'}
+                                    ${!isRank1 && isTop3 ? 'border-primary/40 shadow-[0_0_15px_rgba(6,182,212,0.1)]' : ''}
+                                `}
+                            >
+                                {/* Rank 1 Background Glow */}
+                                {isRank1 && (
+                                    <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-cyan-500/20 blur-3xl rounded-full pointer-events-none" />
+                                )}
+                                <div>
+                                    <div className="flex justify-between items-start mb-6">
+                                        <span className={`
+                                            text-sm font-mono px-3 py-1 rounded flex items-center gap-1
+                                            ${isRank1 ? 'bg-cyan-500 text-black font-bold' : ''}
+                                            ${!isRank1 && isTop3 ? 'bg-primary/20 text-primary border border-primary/20' : ''}
+                                            ${!isTop3 ? 'bg-white/5 text-text-muted' : ''}
+                                        `}>
+                                            {isRank1 && '👑 '}
+                                            {isRank1 ? 'TOP 1' : `RANK #${index + 1}`}
+                                        </span>
+                                        <span className={`text-3xl font-bold font-mono ${isRank1 ? 'text-cyan-400' : 'text-white'}`}>
+                                            {safeVotes[feat.id] || 0}
+                                        </span>
+                                    </div>
+
+                                    <h3 className={`text-2xl font-bold mb-3 ${isRank1 ? 'text-white' : 'text-text-primary'}`}>
+                                        {feat.title}
+                                    </h3>
+                                    <p className="text-text-secondary text-base leading-relaxed mb-8">
+                                        {feat.desc}
+                                    </p>
                                 </div>
-                                <h3 className="text-xl font-bold mb-2 text-text-primary">{feat.title}</h3>
-                                <p className="text-text-secondary text-sm leading-relaxed mb-6">{feat.desc}</p>
-                            </div>
-                            <div className="mt-auto">
-                                <div className="w-full h-1 bg-surface-raised rounded-full mb-4 overflow-hidden">
-                                    <motion.div className="h-full bg-primary" initial={{ width: 0 }} animate={{ width: `${Math.min((safeVotes[feat.id] || 0) / 5, 100)}%` }} />
+                                <div className="mt-auto">
+                                    <div className="w-full h-1 bg-surface-raised rounded-full mb-4 overflow-hidden">
+                                        <motion.div
+                                            className={`h-full ${isRank1 ? 'bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.5)]' : 'bg-primary'}`}
+                                            initial={{ width: 0 }}
+                                            animate={{ width: `${Math.min((safeVotes[feat.id] || 0) / 5, 100)}%` }}
+                                        />
+                                    </div>
+                                    <button
+                                        onClick={() => handleVote(feat.id)}
+                                        disabled={energy <= 0}
+                                        className={`
+                                            w-full py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-lg
+                                            ${energy > 0
+                                                ? (isRank1 ? 'bg-cyan-400 text-black hover:bg-cyan-300' : 'bg-surface hover:bg-primary hover:text-surface-raised border border-primary/30 text-primary')
+                                                : 'bg-surface/50 text-text-muted cursor-not-allowed'}
+                                        `}
+                                    >
+                                        <span>⚡</span> {energy > 0 ? '注入能量' : '算力耗盡'}
+                                    </button>
                                 </div>
-                                <button onClick={() => handleVote(feat.id)} disabled={energy <= 0} className={`w-full py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 ${energy > 0 ? 'bg-surface hover:bg-primary hover:text-surface-raised border border-primary/30 text-primary' : 'bg-surface/50 text-text-muted cursor-not-allowed'}`}>
-                                    <span>⚡</span> {energy > 0 ? '注入能量' : '算力耗盡'}
-                                </button>
-                            </div>
-                        </motion.div>
-                    ))}
+                            </motion.div>
+                        )
+                    })}
                 </div>
 
                 <div className="max-w-2xl mx-auto glass-card rounded-3xl p-8 border border-primary/20 text-center">
