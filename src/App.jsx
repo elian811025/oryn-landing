@@ -1,29 +1,16 @@
-import { LanguageProvider } from './hooks/useTranslation'
 import { Hero } from './components/Hero'
 import { AboutMe } from './components/AboutMe'
-import { ProductsSection } from './components/ProductsSection'
-import { Wishlist } from './components/Wishlist'
-import { CallToAction } from './components/CallToAction'
+import { EvolutionLab } from './components/EvolutionLab'
 import { Footer } from './components/Footer'
 
-function AppContent() {
+function App() {
     return (
         <div className="min-h-screen bg-background">
             <Hero />
             <AboutMe />
-            <ProductsSection />
-            <Wishlist />
-            <CallToAction />
+            <EvolutionLab />
             <Footer />
         </div>
-    )
-}
-
-function App() {
-    return (
-        <LanguageProvider>
-            <AppContent />
-        </LanguageProvider>
     )
 }
 

@@ -1,47 +1,27 @@
 import { motion } from 'framer-motion'
-import { useTranslation } from '../hooks/useTranslation'
-
-// Slow underwater easeOut
-const slowEase = [0, 0, 0.2, 1]
 
 export function AboutMe() {
-    const { t } = useTranslation()
-
-    // Split the body text by newlines for multi-paragraph rendering
-    const bodyText = t('about.body')
-    const paragraphs = bodyText.split('\n').filter(p => p.trim() !== '')
-
     return (
-        <section className="about-section">
+        <section id="about" className="py-32 px-8 bg-gradient-to-b from-transparent via-primary/5 to-transparent">
             <motion.div
-                className="about-container"
-                initial={{ opacity: 0, y: 50 }}
+                className="max-w-4xl mx-auto"
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: slowEase }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
             >
-                <motion.h2
-                    className="about-title"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.1, ease: slowEase }}
-                >
-                    {t('about.title')}
-                </motion.h2>
-                <motion.div
-                    className="about-body"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.25, ease: slowEase }}
-                >
-                    {paragraphs.map((paragraph, index) => (
-                        <p key={index} className="about-paragraph">
-                            {paragraph}
-                        </p>
-                    ))}
-                </motion.div>
+                <h2 className="text-3xl md:text-4xl font-bold mb-16 text-center font-serif leading-relaxed">
+                    願我們都能在數據的洪流中<br />找回掌舵的權利
+                </h2>
+                <div className="text-left space-y-12 text-xl md:text-2xl text-text-secondary leading-[2.2] font-light tracking-wide">
+                    <p>傳說中，最早的人類懂得傾聽風的聲音。<br />但現代的我們，耳邊充滿了雜訊。我們害怕空白，害怕暫停，因為一旦安靜下來，我們就不得不面對那個陌生的自己。</p>
+
+                    <p>我不善言辭，習慣隱身於鍵盤之後。<br />正是因為這份與人群的疏離，讓我看清了那些被噪音掩蓋的本質。我發現，真正的強大，不是向外索求認同，而是向內構建秩序。</p>
+
+                    <p><strong className="text-primary font-normal">Oryn 是一面鏡子。</strong><br />它也是我為自己、也為像你一樣渴望在混亂中保有自我的人，所搭建的一座數位聖殿。在這裡，我們不需要面具，不需要討好。</p>
+
+                    <p>我是 Oryn 的開發者，一個沒有名字的建築師。<br />我在這裡安靜地守護，只為等待你在某個時刻，推開門，對著鏡子裡的自己說一聲：<br /><span className="text-white inline-block mt-2">「終於找到你了。」</span></p>
+                </div>
             </motion.div>
         </section>
     )
