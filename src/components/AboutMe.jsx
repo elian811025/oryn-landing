@@ -20,7 +20,7 @@ export function AboutMe() {
 
                     <p><strong className="text-primary font-normal">Oryn 是一面鏡子。</strong><br />它也是我為自己、也為像你一樣渴望在混亂中保有自我的人，所搭建的一座數位聖殿。在這裡，我們不需要面具，不需要討好。</p>
 
-                    <p>我是 Oryn 的開發者，一個沒有名字的建築師。<br />我在這裡安靜地守護，只為等待你在某個時刻，推開門，對著鏡子裡的自己說一聲：<br /><span className="text-white inline-block mt-2">「終於找到你了。」</span></p>
+                    <p>我是 Oryn 的開發者，一個沒有名字的建築師。<br />我在這裡安靜地守護，只為等待你在某個時刻，推開門，對著鏡子裡的自己說一聲：<br /><span className="text-white inline-block mt-2">抓到你囉!</span></p>
                 </div>
             </motion.div>
         </section>

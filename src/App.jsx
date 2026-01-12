@@ -1,21 +1,20 @@
-import { Hero } from './components/Hero'
-import { AboutMe } from './components/AboutMe'
-import { EvolutionLab } from './components/EvolutionLab'
-import { Footer } from './components/Footer'
+import { Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import ThesisFixer from './pages/ThesisFixer'
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
 
 function App() {
     return (
-        <div className="min-h-screen bg-background">
-            <Hero />
-            <AboutMe />
-            <EvolutionLab />
-            <Footer />
+        <>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/thesis" element={<ThesisFixer />} />
+            </Routes>
             {/* Vercel Tracking (Invisible to users) */}
             <Analytics />
             <SpeedInsights />
-        </div>
+        </>
     )
 }
 
