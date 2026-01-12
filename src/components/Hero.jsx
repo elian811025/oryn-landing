@@ -157,10 +157,10 @@ export function Hero() {
     return (
         <div className="min-h-screen relative overflow-hidden flex flex-col bg-[#050505]">
             {/* Hero Background */}
-            <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/hero-bg.png)' }} />
-            <div className="absolute inset-0 bg-[#050505]/80" />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/30 via-transparent to-[#050505]" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.05)_0%,transparent_70%)]" />
+            <div className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30" style={{ backgroundImage: 'url(/hero-bg.png)' }} />
+            <div className="absolute inset-0 bg-[#000000]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050505]" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.03)_0%,transparent_70%)]" />
 
             {/* Navbar */}
             <nav className="relative z-20 flex items-center justify-between px-8 py-6 max-w-7xl mx-auto w-full">
