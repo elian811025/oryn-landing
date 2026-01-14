@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { supabase } from '../lib/supabase'
 
-// Google Apps Script URL for message board
-const GAS_URL = "https://script.google.com/macros/s/AKfycbxlM5XI6y9sxyBrAb1BPv5AiEc62M2v4mJYmCE-Mti0lF-yBAN48ZjJqhqUcd3d4_Xg0Q/exec"
 export function MessageBoard() {
     const [messages, setMessages] = useState([])
     const [loading, setLoading] = useState(true)
@@ -10,47 +9,39 @@ export function MessageBoard() {
     const [content, setContent] = useState('')
     const [isSubmitting, setIsSubmitting] = useState(false)
 
-    // Fetch messages on mount
+    // Fetch messages from Supabase on mount
     useEffect(() => {
         fetchMessages()
     }, [])
 
     const fetchMessages = async () => {
+        setLoading(true)
         try {
-            // 1. 加個時間戳記 (t=...) 騙過瀏覽器，強制不讀快取
-            const res = await fetch(`${GAS_URL}?t=${new Date().getTime()}`);
+            const { data, error } = await supabase
+                .from('messages')
+                .select('*')
+                .order('created_at', { ascending: false })
 
-            const rawData = await res.json();
-            console.log("從 Google 抓到的原始資料:", rawData);
-
-            const validMessages = rawData.map(msg => {
-                // 2. 資料清洗
-                return {
-                    ...msg,
-                    name: String(msg.name || "匿名"),
-                    content: String(msg.content || ""),
-                    is_dev: msg.is_dev === true || String(msg.is_dev).toUpperCase() === "TRUE"
-                };
-            }).filter(msg => {
-                // 3. 過濾
-                return msg.content.trim().length > 0;
-            });
-
-            console.log("清洗後的資料:", validMessages);
-            setMessages(validMessages);
-
+            if (error) {
+                console.error("Supabase Error:", error)
+            } else {
+                // Filter out empty messages
+                const validMessages = (data || []).filter(msg =>
+                    msg.content && msg.content.trim().length > 0
+                )
+                setMessages(validMessages)
+            }
         } catch (error) {
-            console.error("載入失敗 (請檢查網址或網路):", error);
+            console.error("載入失敗:", error)
         } finally {
-            // 【關鍵修正】不管成功或失敗，最後一定要把 Loading 關掉！
-            setLoading(false);
+            setLoading(false)
         }
-    };
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        // 1. Validation: Only check if content is empty
+        // Validation: Only check if content is empty
         if (!content.trim()) {
             alert('請輸入留言內容')
             return
@@ -58,52 +49,56 @@ export function MessageBoard() {
 
         setIsSubmitting(true)
 
-        const SECRET_CODE = "dev";
+        const SECRET_CODE = "dev"
 
-        // 2. Handle Name Logic
-        let rawName = name.trim();
-        let finalName = rawName;
-        let isDev = false;
+        // Handle Name Logic
+        let rawName = name.trim()
+        let finalName = rawName
+        let isDev = false
 
         // Check for secret code
         if (rawName.includes("#" + SECRET_CODE)) {
-            isDev = true;
-            finalName = rawName.replace("#" + SECRET_CODE, "").trim();
-            if (!finalName) finalName = "oryn.tw";
+            isDev = true
+            finalName = rawName.replace("#" + SECRET_CODE, "").trim()
+            if (!finalName) finalName = "oryn.tw"
         } else if (!rawName) {
-            // Default to "匿名" if empty
-            finalName = "匿名";
+            finalName = "匿名"
         }
 
         // Create message object
         const newMessage = {
             name: finalName,
             content: content.trim(),
-            is_dev: isDev,
-            timestamp: new Date().toLocaleString('zh-TW')
+            is_dev: isDev
         }
 
         // Optimistic UI Update
-        setMessages(prev => [newMessage, ...prev])
+        setMessages(prev => [{ ...newMessage, created_at: new Date().toISOString() }, ...prev])
         setContent('')
-        setName('') // Clear name
+        setName('')
 
         try {
-            await fetch(GAS_URL, {
-                method: 'POST',
-                body: JSON.stringify({
-                    type: 'post_message',
-                    name: rawName || "匿名", // Send raw name (or "匿名") to backend
-                    content: newMessage.content,
-                    is_dev: newMessage.is_dev
-                })
-            })
+            const { error } = await supabase
+                .from('messages')
+                .insert([newMessage])
+
+            if (error) {
+                console.error('Error posting message:', error)
+                alert('發送失敗，請稍後再試')
+            }
         } catch (error) {
             console.error('Error posting message:', error)
             alert('發送失敗，但留言已暫存顯示')
         } finally {
             setIsSubmitting(false)
         }
+    }
+
+    // Format timestamp
+    const formatTime = (timestamp) => {
+        if (!timestamp) return ''
+        const date = new Date(timestamp)
+        return date.toLocaleString('zh-TW')
     }
 
     // Split messages into dev logs and community messages
@@ -150,7 +145,7 @@ export function MessageBoard() {
                             ) : (
                                 devMessages.map((msg, index) => (
                                     <motion.div
-                                        key={`dev-${index}-${msg.timestamp}`}
+                                        key={msg.id || `dev-${index}`}
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: index * 0.1 }}
@@ -158,7 +153,7 @@ export function MessageBoard() {
                                     >
                                         <div className="flex items-center gap-3 mb-4">
                                             <span className="text-[#D4AF37] font-bold text-xl md:text-2xl">🔧 {msg.name === 'oryn.tw' ? '【開發者】' : msg.name}</span>
-                                            <span className="text-[#A1A1AA] text-lg">{msg.timestamp}</span>
+                                            <span className="text-[#A1A1AA] text-lg">{formatTime(msg.created_at)}</span>
                                         </div>
                                         <p className="text-[#EAEAEA] text-2xl md:text-3xl leading-relaxed font-medium">{msg.content}</p>
                                     </motion.div>
@@ -191,7 +186,7 @@ export function MessageBoard() {
                                 className="w-full bg-[#0a0a0a] border border-neutral-800 rounded-xl px-6 py-4 text-[#EAEAEA] text-xl placeholder-neutral-600 focus:border-[#D4AF37] outline-none transition-colors"
                             />
 
-                            {/* Message Textarea (Upgraded) */}
+                            {/* Message Textarea */}
                             <textarea
                                 value={content}
                                 onChange={(e) => setContent(e.target.value)}
@@ -200,7 +195,7 @@ export function MessageBoard() {
                                 className="w-full bg-[#0a0a0a] border border-neutral-800 rounded-xl px-6 py-4 text-[#EAEAEA] text-xl placeholder-neutral-600 focus:border-[#D4AF37] outline-none transition-colors resize-none"
                             />
 
-                            {/* Submit Button (Solid Gold Luxury) */}
+                            {/* Submit Button */}
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
@@ -227,7 +222,7 @@ export function MessageBoard() {
                             ) : (
                                 communityMessages.map((msg, index) => (
                                     <motion.div
-                                        key={`community-${index}-${msg.timestamp}`}
+                                        key={msg.id || `community-${index}`}
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: index * 0.05 }}
@@ -235,7 +230,7 @@ export function MessageBoard() {
                                     >
                                         <div className="flex items-center gap-3 mb-4">
                                             <span className="text-stone-300 font-bold text-xl md:text-2xl">{msg.name || '匿名'}</span>
-                                            <span className="text-[#A1A1AA] text-lg">{msg.timestamp}</span>
+                                            <span className="text-[#A1A1AA] text-lg">{formatTime(msg.created_at)}</span>
                                         </div>
                                         <p className="text-[#EAEAEA] text-2xl md:text-3xl leading-relaxed font-medium">{msg.content}</p>
                                     </motion.div>
