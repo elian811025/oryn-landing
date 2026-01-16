@@ -218,7 +218,7 @@ export function MessageBoard() {
                             {loading ? (
                                 <p className="text-[#A1A1AA] text-center py-8">載入中...</p>
                             ) : communityMessages.length === 0 ? (
-                                <p className="text-[#A1A1AA] text-center py-8">還沒人來過？快來搶頭香！🏆</p>
+                                <p className="text-[#A1A1AA] text-center py-8">還沒人留言？快來搶頭香！🏆</p>
                             ) : (
                                 communityMessages.map((msg, index) => (
                                     <motion.div

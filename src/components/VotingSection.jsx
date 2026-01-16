@@ -383,9 +383,9 @@ export function VotingSection() {
                                 你的想像，是我們下一個奇蹟的種子
                             </h3>
                             <p className="text-lg text-[#A1A1AA] leading-relaxed max-w-xl mx-auto">
-                                在這裡，沒有所謂「異想天開」。<br />
-                                告訴我們你遇到的麻煩，或是腦海中一閃而過的瘋狂點子。<br />
-                                <span className="text-[#D4AF37]">我們或許真的能讓它發生。</span>
+                                在這裡，沒有所謂異想天開<br />
+                                告訴我們你遇到的麻煩，或是腦海中一閃而過的瘋狂點子<br />
+                                <span className="text-[#D4AF37]">我們或許真的能讓它發生</span>
                             </p>
                         </div>
 
@@ -416,7 +416,7 @@ export function VotingSection() {
 
                                 <div className="flex flex-col md:flex-row gap-4 items-stretch">
                                     <div className="flex-1 space-y-2">
-                                        <label className="text-sm font-medium text-[#D4AF37]/80 ml-2">通知信箱 (選填)</label>
+                                        <label className="text-sm font-medium text-[#D4AF37]/80 ml-2">留下你的 email</label>
                                         <input
                                             type="email"
                                             value={email}
