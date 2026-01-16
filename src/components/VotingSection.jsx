@@ -336,7 +336,7 @@ export function VotingSection() {
                                                     rel="noopener noreferrer"
                                                     className="w-full py-3 rounded-xl font-bold text-sm tracking-wide bg-[#D4AF37] text-black hover:bg-[#E5C100] hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all flex items-center justify-center gap-2 group-hover:scale-[1.02] active:scale-[0.98]"
                                                 >
-                                                    � 立即傳送
+                                                    立即使用
                                                 </a>
                                             ) : (
                                                 <button
