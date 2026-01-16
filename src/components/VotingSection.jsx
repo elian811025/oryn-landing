@@ -367,7 +367,7 @@ export function VotingSection() {
                 )}
 
                 {/* Wishlist Form - Magical Rewrite */}
-                <div id="wishlist" className="relative max-w-3xl mx-auto mt-32">
+                <div id="wishlist" className="relative max-w-6xl mx-auto mt-32">
 
                     {/* Magical Aura Background */}
                     <div className="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/10 via-purple-500/5 to-transparent blur-[60px] rounded-full pointer-events-none" />
