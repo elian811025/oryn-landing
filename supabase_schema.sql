@@ -47,12 +47,12 @@ ALTER TABLE messages DISABLE ROW LEVEL SECURITY;
 
 INSERT INTO features (id, title, category, description, votes, rank, is_live) VALUES
 -- Web App
-('web-1', '論文格式救星 (Live)', 'web', '丟入 Word 檔，自動校正排版。目前已上線 Beta 版，持續迭代中。', 56, 1, TRUE),
+('web-1', '論文格式救星', 'web', '丟入 Word 檔，自動校正排版。目前已上線 Beta 版，持續迭代中。', 56, 1, TRUE),
 ('web-2', '雷包組員偵測器', 'web', '專案管理頁面。組員三天沒進度，系統自動寄信給教授 CC 全組。', 12, 2, FALSE),
 ('web-3', 'PDF 轉譯與對話', 'web', '上傳英文文獻，左邊原文右邊翻譯，還能直接問 AI 論文細節。', 8, 3, FALSE),
 
 -- Chrome Extension
-('ext-1', '文獻神偷 (Scholar Snatcher)', 'extension', '在 Google Scholar 一鍵下載 PDF 並「自動重新命名」為 [年份] 作者 - 標題。', 0, 0, FALSE),
+('ext-1', '文獻神偷', 'extension', '在 Google Scholar 一鍵下載 PDF 並「自動重新命名」為 [年份] 作者 - 標題。', 0, 0, FALSE),
 ('ext-2', '專注力場', 'extension', '論文模式開啟時，若試圖打開 FB/IG，畫面會被黑底藍字覆蓋質問：「寫完了嗎？」', 0, 0, FALSE),
 ('ext-3', '購物車冷靜期', 'extension', '在網拍結帳頁面強制加入「24 小時倒數計時」按鈕，時間到才能付款。', 0, 0, FALSE),
 

@@ -106,8 +106,8 @@ export function MessageBoard() {
     const communityMessages = messages.filter(m => m.is_dev !== true)
 
     return (
-        <section id="messages" className="py-24 px-8 bg-[#050505]">
-            <div className="max-w-7xl mx-auto">
+        <section id="messages" className="py-24 px-4 md:px-8 bg-[#050505] w-full">
+            <div className="w-full max-w-[1920px] mx-auto">
                 {/* Section Header */}
                 <motion.div
                     className="text-center mb-16"
@@ -116,7 +116,7 @@ export function MessageBoard() {
                     viewport={{ once: true }}
                 >
                     <h2 className="text-4xl lg:text-5xl font-bold mb-4 text-[#EAEAEA]">
-                        互動中心
+                        來聊聊天 / 聽聽你的想法
                     </h2>
                     <p className="text-[#A1A1AA]">Communication Hub</p>
                 </motion.div>
@@ -133,7 +133,7 @@ export function MessageBoard() {
                     >
                         <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[#D4AF37]/20">
                             <span className="text-2xl">👨‍💻</span>
-                            <h3 className="text-xl font-bold text-[#D4AF37]">開發者日誌</h3>
+                            <h3 className="text-xl font-bold text-[#D4AF37]">魔法師的修練日記</h3>
                             <span className="text-xs bg-[#D4AF37]/10 text-[#D4AF37] px-2 py-1 rounded-full">Dev Log</span>
                         </div>
 
@@ -141,7 +141,7 @@ export function MessageBoard() {
                             {loading ? (
                                 <p className="text-[#A1A1AA] text-center py-8">載入中...</p>
                             ) : devMessages.length === 0 ? (
-                                <p className="text-[#A1A1AA] text-center py-8">暫無開發者訊息</p>
+                                <p className="text-[#A1A1AA] text-center py-8">暫無訊息</p>
                             ) : (
                                 devMessages.map((msg, index) => (
                                     <motion.div
@@ -171,8 +171,8 @@ export function MessageBoard() {
                     >
                         <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/5">
                             <span className="text-2xl">💬</span>
-                            <h3 className="text-xl font-bold text-stone-200">社群留言</h3>
-                            <span className="text-xs bg-stone-200/10 text-stone-300 px-2 py-1 rounded-full">Community</span>
+                            <h3 className="text-xl font-bold text-stone-200">冒險者留言板</h3>
+                            <span className="text-xs bg-stone-200/10 text-stone-300 px-2 py-1 rounded-full"></span>
                         </div>
 
                         {/* Message Input Form */}
@@ -182,7 +182,7 @@ export function MessageBoard() {
                                 type="text"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                placeholder="你的名字 (選填)"
+                                placeholder="你的大名 (或是帥氣代號)"
                                 className="w-full bg-[#0a0a0a] border border-neutral-800 rounded-xl px-6 py-4 text-[#EAEAEA] text-xl placeholder-neutral-600 focus:border-[#D4AF37] outline-none transition-colors"
                             />
 
@@ -190,7 +190,7 @@ export function MessageBoard() {
                             <textarea
                                 value={content}
                                 onChange={(e) => setContent(e.target.value)}
-                                placeholder="留下你的想法..."
+                                placeholder="留個言給開發者，或是跟大家打招呼..."
                                 rows={6}
                                 className="w-full bg-[#0a0a0a] border border-neutral-800 rounded-xl px-6 py-4 text-[#EAEAEA] text-xl placeholder-neutral-600 focus:border-[#D4AF37] outline-none transition-colors resize-none"
                             />
@@ -209,7 +209,7 @@ export function MessageBoard() {
                                         </svg>
                                         發送中...
                                     </>
-                                ) : '發送留言'}
+                                ) : '貼上佈告欄'}
                             </button>
                         </form>
 
@@ -218,7 +218,7 @@ export function MessageBoard() {
                             {loading ? (
                                 <p className="text-[#A1A1AA] text-center py-8">載入中...</p>
                             ) : communityMessages.length === 0 ? (
-                                <p className="text-[#A1A1AA] text-center py-8">成為第一個留言的人吧！</p>
+                                <p className="text-[#A1A1AA] text-center py-8">還沒人來過？快來搶頭香！🏆</p>
                             ) : (
                                 communityMessages.map((msg, index) => (
                                     <motion.div

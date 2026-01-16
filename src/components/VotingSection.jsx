@@ -8,7 +8,7 @@ const categories = [
         id: 'web',
         label: '網頁應用程式',
         subtitle: '網站或網頁版軟體',
-        description: '不需要下載安裝，只要打開瀏覽器（像 Chrome、Edge）輸入網址就能用的東西。'
+        description: '不需要下載安裝，只要打開瀏覽器，輸入網址就能用的東西。'
     },
     {
         id: 'extension',
@@ -211,258 +211,257 @@ export function VotingSection() {
                 {/* Section Header */}
                 <div className="text-center mb-12">
                     <h2 className="text-5xl lg:text-6xl font-bold mb-6 text-[#EAEAEA]">
-                        進化實驗室
+                        許願池
                     </h2>
-                    <p className="text-xl text-[#A1A1AA] mb-10">Arsenal Development Voting</p>
+                    <p className="text-xl text-[#A1A1AA] mb-10">選出你最想要的新功能</p>
 
                     {/* Remaining Power Badge */}
                     <div className={`inline-flex items-center gap-4 px-10 py-5 rounded-full border ${remainingPower > 0 ? 'bg-[#0a0a0a] border-[#D4AF37]/30' : 'bg-neutral-900 border-neutral-700'}`}>
-                        <span className={`text-3xl ${remainingPower > 0 ? 'text-[#D4AF37]' : 'text-neutral-500'}`}>⚡</span>
+                        <span className={`text-3xl ${remainingPower > 0 ? 'text-[#D4AF37]' : 'text-neutral-500'}`}>🪙</span>
                         <span className={`font-mono font-bold text-2xl ${remainingPower > 0 ? 'text-[#EAEAEA]' : 'text-neutral-500'}`}>
-                            剩餘算力: {remainingPower} / 3
+                            許願幣: {remainingPower} / 3
                         </span>
-                        {remainingPower === 0 && <span className="text-neutral-500 text-lg ml-2">(明日重置)</span>}
+                        {remainingPower === 0 && <span className="text-neutral-500 text-lg ml-2">(明天會再發3枚幣)</span>}
                     </div>
                 </div>
-
-                {/* Category Tabs */}
-                <div className="flex flex-wrap justify-center gap-4 mb-10">
-                    {categories.map((cat) => {
-                        const isActive = activeCategory === cat.id
-                        return (
-                            <button
-                                key={cat.id}
-                                onClick={() => setActiveCategory(cat.id)}
-                                className={`
-                                    relative px-8 py-5 rounded-xl font-medium transition-all duration-300
-                                    ${isActive
-                                        ? 'bg-[#D4AF37]/20 text-[#D4AF37] border-2 border-[#D4AF37] shadow-[0_0_25px_rgba(212,175,55,0.3)]'
-                                        : 'bg-[#0a0a0a] text-[#A1A1AA] border border-white/10 hover:border-[#D4AF37]/50 hover:text-[#D4AF37]'}
-                                `}
-                            >
-                                <div className="flex flex-col items-center gap-2">
-                                    <span className="text-base font-bold">{cat.label}</span>
-                                    <span className="text-sm opacity-70">{cat.subtitle}</span>
-                                </div>
-                                {isActive && (
-                                    <motion.div
-                                        layoutId="activeTab"
-                                        className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-10 h-1 bg-[#D4AF37] rounded-full shadow-[0_0_10px_rgba(212,175,55,0.8)]"
-                                    />
-                                )}
-                            </button>
-                        )
-                    })}
-                </div>
-
-                {/* Category Description */}
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={activeCategory}
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 10 }}
-                        transition={{ duration: 0.2 }}
-                        className="text-center mb-16"
-                    >
-                        <p className="text-xl text-[#D4AF37]/80 max-w-2xl mx-auto">
-                            {currentCategory?.description}
-                        </p>
-                    </motion.div>
-                </AnimatePresence>
-
-                {/* Emergency Share Protocol */}
-                {remainingPower === 0 && !hasShared && (
-                    <motion.div
-                        className="max-w-2xl mx-auto mb-12 p-8 rounded-2xl border-2 border-[#D4AF37]/50 bg-[#D4AF37]/5"
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                    >
-                        <div className="text-center">
-                            <h3 className="text-3xl font-bold mb-4 text-[#D4AF37]">⚠️ 算力耗盡｜啟動緊急動員</h3>
-                            <p className="text-xl text-[#A1A1AA] mb-8">
-                                分享連結邀請援軍，立即獲得 <span className="text-[#D4AF37] font-bold">3 單位算力</span>。
-                            </p>
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                <button onClick={() => handleShare('line')} className="px-8 py-4 text-lg bg-[#06C755] hover:bg-[#05b34d] text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2">
-                                    分享到 Line
-                                </button>
-                                <button onClick={() => handleShare('copy')} className="px-8 py-4 text-lg bg-[#0a0a0a] hover:bg-neutral-800 border border-[#D4AF37]/50 text-[#D4AF37] font-bold rounded-xl transition-all flex items-center justify-center gap-2">
-                                    複製連結
-                                </button>
-                            </div>
-                        </div>
-                    </motion.div>
-                )}
 
                 {/* Loading State */}
                 {loading ? (
                     <div className="text-center py-20">
                         <div className="inline-block w-12 h-12 border-4 border-[#D4AF37]/30 border-t-[#D4AF37] rounded-full animate-spin"></div>
-                        <p className="mt-4 text-[#A1A1AA]">載入中...</p>
+                        <p className="mt-4 text-[#A1A1AA]">正在擺攤中...</p>
                     </div>
                 ) : (
-                    /* Voting Cards Grid */
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={activeCategory}
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -20 }}
-                            transition={{ duration: 0.3 }}
-                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24"
-                        >
-                            {filteredFeatures.length === 0 ? (
-                                <div className="col-span-full text-center py-10 text-[#A1A1AA]">
-                                    此分類尚無功能，敬請期待！
-                                </div>
-                            ) : (
-                                filteredFeatures.map((feat, index) => {
-                                    const voteCount = feat.votes || 0
-                                    const isRank1 = index === 0 && voteCount > 0
-                                    const isLive = feat.is_live
+                    /* Creative Market Grid (Masonry-like layout) */
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24 auto-rows-fr">
+                        {features.map((feat, index) => {
+                            const voteCount = feat.votes || 0
+                            const isRank1 = index === 0 && voteCount > 0
+                            const isLive = feat.is_live
+                            const isNew = voteCount === 0
 
-                                    return (
-                                        <motion.div
-                                            key={feat.id}
-                                            layout
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: index * 0.1 }}
-                                            className={`
-                                                rounded-2xl p-8 flex flex-col justify-between group transition-all relative overflow-hidden border
-                                                ${isLive
-                                                    ? 'bg-[#0a0a0a] border-[#D4AF37] shadow-[0_0_25px_rgba(212,175,55,0.2)]'
-                                                    : isRank1
-                                                        ? 'bg-[#0a0a0a] border-[#D4AF37] shadow-[0_0_25px_rgba(212,175,55,0.2)]'
-                                                        : 'bg-[#0a0a0a] border-white/10 hover:border-[#D4AF37]/30'}
-                                            `}
-                                        >
-                                            {/* Glow Effect */}
-                                            {(isRank1 || isLive) && (
-                                                <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-[#D4AF37]/10 blur-3xl rounded-full pointer-events-none" />
-                                            )}
+                            return (
+                                <motion.div
+                                    key={feat.id}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                                    className={`
+                                        flex flex-col justify-between group transition-all relative overflow-hidden h-full
+                                        rounded-3xl border p-1
+                                        ${isLive || isRank1
+                                            ? 'bg-neutral-900/40 border-[#D4AF37]/50 shadow-[0_0_30px_-5px_rgba(212,175,55,0.15)]'
+                                            : 'bg-neutral-900/20 border-white/5 hover:border-[#D4AF37]/30 hover:bg-neutral-900/40'}
+                                    `}
+                                >
+                                    {/* Inner Card Container */}
+                                    <div className="flex-1 rounded-[20px] bg-[#0a0a0a]/80 backdrop-blur-sm p-7 h-full flex flex-col">
 
+                                        {/* Status Header */}
+                                        <div className="flex justify-between items-start mb-6">
+                                            {/* Left Badge */}
                                             <div>
-                                                {/* Status Badges */}
-                                                <div className="flex justify-between items-start mb-6">
-                                                    <div className="flex gap-2">
-                                                        {isLive && (
-                                                            <span className="text-sm font-bold px-4 py-2 rounded-full bg-[#D4AF37] text-black">
-                                                                🟢 LIVE
-                                                            </span>
-                                                        )}
-                                                        {isRank1 && !isLive && (
-                                                            <span className="text-sm font-bold px-4 py-2 rounded-full bg-[#D4AF37] text-black">
-                                                                👑 TOP 1
-                                                            </span>
-                                                        )}
-                                                        {!isRank1 && !isLive && (
-                                                            <span className="text-sm font-mono px-4 py-2 rounded bg-white/5 text-[#A1A1AA]">
-                                                                RANK #{index + 1}
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                    <span className={`text-3xl font-bold font-mono ${isLive || isRank1 ? 'text-[#D4AF37]' : 'text-[#EAEAEA]'}`}>
-                                                        {voteCount}
-                                                    </span>
-                                                </div>
-
-                                                <h3 className="text-2xl font-bold mb-4 text-[#EAEAEA]">{feat.title}</h3>
-                                                <p className="text-lg text-[#A1A1AA] leading-relaxed mb-8">{feat.description}</p>
-                                            </div>
-
-                                            {/* Vote Progress & Button */}
-                                            <div className="mt-auto">
-                                                <div className="w-full h-2 bg-neutral-800 rounded-full mb-6 overflow-hidden">
-                                                    <motion.div
-                                                        className="h-full bg-[#D4AF37]"
-                                                        initial={{ width: 0 }}
-                                                        animate={{ width: `${Math.min(voteCount * 10, 100)}%` }}
-                                                    />
-                                                </div>
-
                                                 {isLive ? (
-                                                    <a
-                                                        href="https://thesis.oryn.tw"
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="w-full py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-lg bg-[#D4AF37] text-black hover:bg-[#B8860B]"
-                                                    >
-                                                        <span>🚀</span> 立即體驗
-                                                    </a>
+                                                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#D4AF37] text-black text-xs font-bold rounded-full tracking-wider shadow-[0_0_10px_rgba(212,175,55,0.4)]">
+                                                        <span className="w-2 h-2 rounded-full bg-black animate-pulse" /> LIVE
+                                                    </span>
+                                                ) : isRank1 ? (
+                                                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-black text-xs font-bold rounded-full tracking-wider shadow-[0_0_15px_rgba(255,215,0,0.4)]">
+                                                        👑 NO.1
+                                                    </span>
+                                                ) : isNew ? (
+                                                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-500/10 text-green-400 border border-green-500/20 text-xs font-bold rounded-full tracking-wider">
+                                                        ✨ NEW
+                                                    </span>
                                                 ) : (
-                                                    <button
-                                                        onClick={() => handleVote(feat.id)}
-                                                        disabled={remainingPower <= 0}
-                                                        className={`
-                                                            w-full py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2 text-lg
-                                                            ${remainingPower > 0
-                                                                ? 'bg-[#0a0a0a] hover:bg-[#D4AF37] hover:text-black border border-[#D4AF37]/30 text-[#D4AF37] hover:shadow-[0_0_20px_rgba(212,175,55,0.3)]'
-                                                                : 'bg-neutral-800 text-neutral-500 cursor-not-allowed'}
-                                                        `}
-                                                    >
-                                                        <span>⚡</span> {remainingPower > 0 ? '注入能量' : '算力耗盡'}
-                                                    </button>
+                                                    <span className="text-xs font-mono text-[#525252] border border-[#262626] px-2 py-1 rounded">
+                                                        #{String(index + 1).padStart(3, '0')}
+                                                    </span>
                                                 )}
                                             </div>
-                                        </motion.div>
-                                    )
-                                })
-                            )}
-                        </motion.div>
-                    </AnimatePresence>
+
+                                            {/* Right Vote Counter */}
+                                            {isNew ? (
+                                                <span className="text-xs font-medium text-[#D4AF37] animate-pulse">
+                                                    ✨ 等你首投
+                                                </span>
+                                            ) : (
+                                                <div className="flex flex-col items-end">
+                                                    <span className={`text-2xl font-black font-mono leading-none ${isLive || isRank1 ? 'text-[#D4AF37]' : 'text-[#737373]'}`}>
+                                                        {voteCount}
+                                                    </span>
+                                                    <span className="text-[10px] text-[#525252] font-bold tracking-wider uppercase">VOTES</span>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        {/* Content */}
+                                        <div className="mb-8">
+                                            <h3 className={`text-xl font-bold mb-3 leading-tight ${isLive || isRank1 ? 'text-white' : 'text-[#D4d4d4] group-hover:text-white transition-colors'}`}>
+                                                {feat.title}
+                                            </h3>
+                                            <p className="text-sm text-[#A3A3A3] leading-relaxed line-clamp-3 group-hover:line-clamp-none transition-all duration-300">
+                                                {feat.description}
+                                            </p>
+
+                                            {/* Category Tag (Since we removed tabs) */}
+                                            <div className="mt-4">
+                                                <span className="text-[10px] uppercase tracking-widest text-[#525252] border border-[#262626] px-2 py-1 rounded-md">
+                                                    {categories.find(c => c.id === feat.category)?.label || '未分類'}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        {/* Gamified Progress & Action */}
+                                        <div className="mt-auto">
+                                            {/* Game-like XP Bar */}
+                                            {!isLive && (
+                                                <div className="relative w-full h-1.5 bg-[#171717] rounded-full mb-6 overflow-hidden">
+                                                    <motion.div
+                                                        className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/50 via-[#FFD700] to-[#FFA500]"
+                                                        initial={{ width: 0 }}
+                                                        whileInView={{ width: `${Math.min(voteCount * 5, 100)}%` }} // Scaled for visual impact
+                                                        transition={{ duration: 1.5, ease: "circOut" }}
+                                                    />
+                                                    {/* Shine effect on bar */}
+                                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent w-full -translate-x-full animate-[shimmer_2s_infinite]" />
+                                                </div>
+                                            )}
+
+                                            {isLive ? (
+                                                <a
+                                                    href="https://thesis.oryn.tw"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="w-full py-3 rounded-xl font-bold text-sm tracking-wide bg-[#D4AF37] text-black hover:bg-[#E5C100] hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all flex items-center justify-center gap-2 group-hover:scale-[1.02] active:scale-[0.98]"
+                                                >
+                                                    � 立即傳送
+                                                </a>
+                                            ) : (
+                                                <button
+                                                    onClick={() => handleVote(feat.id)}
+                                                    disabled={remainingPower <= 0}
+                                                    className={`
+                                                        w-full py-3 rounded-xl font-bold text-sm tracking-wide transition-all flex items-center justify-center gap-2
+                                                        ${remainingPower > 0
+                                                            ? 'bg-[#1a1a1a] text-[#D4AF37] border border-[#D4AF37]/20 group-hover:border-[#D4AF37] group-hover:bg-[#D4AF37] group-hover:text-black hover:shadow-[0_0_20px_rgba(212,175,55,0.25)]'
+                                                            : 'bg-[#171717] text-[#404040] cursor-not-allowed border border-white/5'}
+                                                    `}
+                                                >
+                                                    {remainingPower > 0 ? (
+                                                        <>
+                                                            <span className="group-hover:animate-bounce">🪙</span> 投下許願幣
+                                                        </>
+                                                    ) : (
+                                                        '明日再來 👋'
+                                                    )}
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            )
+                        })}
+                    </div>
                 )}
 
-                {/* Wishlist Form */}
-                <div id="wishlist" className="max-w-2xl mx-auto bg-[#0a0a0a] rounded-3xl p-10 border border-[#D4AF37]/20 text-center">
-                    <h3 className="text-3xl font-bold mb-4 text-[#EAEAEA]">還沒看到你想要的功能？</h3>
-                    <p className="text-xl text-[#A1A1AA] mb-10">將您的需求寫入 Oryn 的基因庫。</p>
+                {/* Wishlist Form - Magical Rewrite */}
+                <div id="wishlist" className="relative max-w-3xl mx-auto mt-32">
 
-                    {!submitted ? (
-                        <form onSubmit={handleSubmit} className="flex flex-col gap-6 text-left">
-                            <textarea
-                                value={idea}
-                                onChange={e => setIdea(e.target.value)}
-                                placeholder="系統尚有缺口... 請輸入您需要的功能想法..."
-                                className="w-full bg-[#050505] border border-neutral-800 rounded-xl p-5 text-lg focus:border-[#D4AF37] outline-none transition-colors min-h-[120px] text-[#EAEAEA] placeholder-neutral-600"
-                            />
-                            <div className="flex flex-wrap gap-3 mb-2">
-                                {suggestionTags.map(tag => (
-                                    <button
-                                        key={tag}
-                                        type="button"
-                                        onClick={() => addTag(tag)}
-                                        className="text-base px-4 py-2 rounded-full bg-black border border-white/10 text-zinc-400 hover:text-[#D4AF37] hover:border-[#D4AF37]/30 transition-colors"
-                                    >
-                                        {tag}
-                                    </button>
-                                ))}
-                            </div>
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <input
-                                    type="email"
-                                    value={email}
-                                    onChange={e => setEmail(e.target.value)}
-                                    placeholder="輸入 Email (當功能上線時通知我)"
-                                    className="flex-1 bg-[#050505] border border-neutral-800 rounded-xl p-5 text-lg focus:border-[#D4AF37] outline-none transition-colors text-[#EAEAEA] placeholder-neutral-600"
-                                />
-                                <button
-                                    type="submit"
-                                    disabled={isSubmitting || (!idea && !email)}
-                                    className="px-10 py-5 text-lg bg-[#D4AF37] text-black font-bold rounded-xl hover:bg-[#B8860B] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_15px_rgba(212,175,55,0.2)]"
-                                >
-                                    {isSubmitting ? '發送訊號...' : '發射訊號 🚀'}
-                                </button>
-                            </div>
-                        </form>
-                    ) : (
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="py-10 text-[#D4AF37]">
-                            <span className="text-6xl mb-6 block">🧬</span>
-                            <p className="text-2xl font-bold">訊號已接收。</p>
-                            <p className="text-xl opacity-80">您的 ID 已被寫入 Oryn 的基因庫。</p>
-                        </motion.div>
-                    )}
+                    {/* Magical Aura Background */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#D4AF37]/10 via-purple-500/5 to-transparent blur-[60px] rounded-full pointer-events-none" />
+
+                    <div className="relative bg-[#0a0a0a]/90 backdrop-blur-xl rounded-[2rem] p-10 md:p-14 border border-[#D4AF37]/30 shadow-[0_0_50px_-10px_rgba(212,175,55,0.15)] overflow-hidden">
+
+                        {/* Shimmering Top Border */}
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-50" />
+
+                        <div className="text-center mb-10">
+                            <span className="inline-block text-4xl mb-4 filter drop-shadow-[0_0_10px_rgba(255,215,0,0.5)]">🌠</span>
+                            <h3 className="text-3xl md:text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#FFE580] to-[#EAEAEA]">
+                                你的想像，是我們下一個奇蹟的種子
+                            </h3>
+                            <p className="text-lg text-[#A1A1AA] leading-relaxed max-w-xl mx-auto">
+                                在這裡，沒有所謂「異想天開」。<br />
+                                告訴我們你遇到的麻煩，或是腦海中一閃而過的瘋狂點子。<br />
+                                <span className="text-[#D4AF37]">我們或許真的能讓它發生。</span>
+                            </p>
+                        </div>
+
+                        {!submitted ? (
+                            <form onSubmit={handleSubmit} className="flex flex-col gap-6 text-left relative z-10">
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium text-[#D4AF37]/80 ml-2">你的願望內容</label>
+                                    <textarea
+                                        value={idea}
+                                        onChange={e => setIdea(e.target.value)}
+                                        placeholder="親愛的開發者：&#10;&#10;我希望有一個工具可以幫我..."
+                                        className="w-full bg-[#050505] border border-white/10 rounded-2xl p-6 text-lg focus:border-[#D4AF37] focus:bg-[#0a0a0a] focus:shadow-[0_0_20px_rgba(212,175,55,0.1)] outline-none transition-all min-h-[160px] text-[#EAEAEA] placeholder-neutral-600 resize-none"
+                                    />
+                                </div>
+
+                                <div className="flex flex-wrap gap-3 mb-2 px-1">
+                                    {suggestionTags.map(tag => (
+                                        <button
+                                            key={tag}
+                                            type="button"
+                                            onClick={() => addTag(tag)}
+                                            className="text-xs md:text-sm px-4 py-2 rounded-full bg-white/5 border border-white/5 text-[#A1A1AA] hover:text-[#D4AF37] hover:border-[#D4AF37]/50 hover:bg-[#D4AF37]/5 transition-all active:scale-95"
+                                        >
+                                            {tag}
+                                        </button>
+                                    ))}
+                                </div>
+
+                                <div className="flex flex-col md:flex-row gap-4 items-stretch">
+                                    <div className="flex-1 space-y-2">
+                                        <label className="text-sm font-medium text-[#D4AF37]/80 ml-2">通知信箱 (選填)</label>
+                                        <input
+                                            type="email"
+                                            value={email}
+                                            onChange={e => setEmail(e.target.value)}
+                                            placeholder="願望實現時，我想第一個知道"
+                                            className="w-full h-full bg-[#050505] border border-white/10 rounded-2xl p-5 text-base focus:border-[#D4AF37] focus:bg-[#0a0a0a] outline-none transition-all text-[#EAEAEA] placeholder-neutral-600"
+                                        />
+                                    </div>
+                                    <div className="flex items-end">
+                                        <button
+                                            type="submit"
+                                            disabled={isSubmitting || (!idea && !email)}
+                                            className="w-full md:w-auto px-8 py-5 text-lg bg-gradient-to-r from-[#D4AF37] to-[#FFA500] text-black font-bold rounded-2xl hover:brightness-110 hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none flex items-center justify-center gap-2 group"
+                                        >
+                                            {isSubmitting ? (
+                                                '正在傳送...'
+                                            ) : (
+                                                <>
+                                                    <span>✨</span> 將願望投遞給宇宙
+                                                </>
+                                            )}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        ) : (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="py-16 text-center"
+                            >
+                                <div className="inline-block p-6 rounded-full bg-[#D4AF37]/10 mb-6 animate-pulse">
+                                    <span className="text-6xl">🌠</span>
+                                </div>
+                                <h4 className="text-3xl font-bold text-[#D4AF37] mb-4">收到你的信號了！</h4>
+                                <p className="text-xl text-[#A1A1AA] max-w-md mx-auto leading-relaxed">
+                                    你的願望已經像流星一樣飛入我們的開發清單。<br />
+                                    <span className="text-white">請期待奇蹟發生。</span>
+                                </p>
+                            </motion.div>
+                        )}
+
+                        {/* Decorative background elements inside card */}
+                        <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-[#D4AF37]/5 rounded-full blur-3xl pointer-events-none" />
+                    </div>
                 </div>
             </div>
         </section>
