@@ -71,7 +71,19 @@ const releasedProducts = [
         desc: '丟入 Word 檔，自動校正 APA/MLA 格式、對齊目錄與頁碼。省下最後那崩潰的 5 小時排版時間。',
         externalLink: 'https://thesis.oryn.tw',
         status: 'Beta',
-        category: '🌐 Web App'
+        category: '🌐 Web App',
+        icon: '📄',
+        buttonText: '🚀 立即使用'
+    },
+    {
+        id: 'prisma_knowledge',
+        title: 'Prisma 知識全貌',
+        desc: '結合 Gemini 2.0 與維基百科，將知識視覺化。從一個節點展開整個宇宙，發現那些原本看不見的隱形連結與邏輯。',
+        externalLink: 'https://prisma.oryn.tw',
+        status: 'New',
+        category: '🌐 Web App',
+        icon: '🔮',
+        buttonText: '🔮 立即探索'
     }
 ]
 
@@ -130,7 +142,7 @@ export function EvolutionLab() {
                                 {/* Icon Display */}
                                 <div className="relative mb-8 text-6xl group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500 inline-block">
                                     <div className="absolute inset-0 bg-[#FFD700]/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                                    📄
+                                    {product.icon || '📄'}
                                 </div>
 
                                 <h3 className="text-3xl font-bold text-white mb-4 group-hover:text-[#FFD700] transition-colors">
@@ -151,7 +163,7 @@ export function EvolutionLab() {
                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 ease-in-out" />
 
                                     <span className="relative font-bold text-[#1A1A1A] text-xl flex items-center gap-2">
-                                        <span>🚀</span> 立即使用
+                                        {product.buttonText || '🚀 立即使用'}
                                     </span>
                                 </a>
                             </div>

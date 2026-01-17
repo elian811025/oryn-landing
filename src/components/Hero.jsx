@@ -336,7 +336,7 @@ export function Hero() {
                         className="hover:text-[#D4AF37] transition-colors"
                         onClick={handleNavClick}
                     >
-                        心的願望
+                        你的願望
                     </a>
                 </motion.div>
 
