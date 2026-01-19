@@ -84,6 +84,16 @@ const releasedProducts = [
         category: '🌐 Web App',
         icon: '🔮',
         buttonText: '🔮 立即探索'
+    },
+    {
+        id: 'hex_strategy',
+        title: 'HEX 戰略沙盤',
+        desc: '將複雜的思緒整理成清晰的戰略地圖，用無限的畫布釐清每一個戰略決策',
+        externalLink: 'https://nex.oryn.tw',
+        status: 'New',
+        category: '🌐 Web App',
+        icon: '🗺️',
+        buttonText: '🗺️ 立即探索'
     }
 ]
 
