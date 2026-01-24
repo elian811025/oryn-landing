@@ -134,7 +134,7 @@ export function MessageBoard() {
                             模組：訊號交換 [SIGNAL_EXCHANGE]
                         </div>
                         <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
-                            交流訊號
+                            留言板
                         </h2>
                     </div>
                     <div className="hidden md:block text-right">

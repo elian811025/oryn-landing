@@ -97,7 +97,7 @@ export function EvolutionLab() {
                             模組：現實化資產 [REALIZED_ASSETS]
                         </div>
                         <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter">
-                            願望成真區
+                            產品區
                         </h2>
                     </div>
                     <div className="text-right hidden md:block">

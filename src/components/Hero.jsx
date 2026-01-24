@@ -82,11 +82,11 @@ function MobileMenu({ isOpen, onClose }) {
         {
             section: '關於我們', items: [
                 { label: '開發者介紹', href: '#about' },
-                { label: '願望成真區', href: '#products' },
+                { label: '產品區', href: '#products' },
             ]
         },
         {
-            section: '實驗室', items: [
+            section: '留言板', items: [
                 { label: '來聊聊天 / 聽聽你的想法', href: '#messages' },
             ]
         },
@@ -162,7 +162,7 @@ export function Hero() {
 
     const aboutItems = [
         { label: '開發者介紹', href: '#about' },
-        { label: '願望成真區', href: '#products' },
+        { label: '產品區', href: '#products' },
     ]
 
     const labItems = [
@@ -201,7 +201,7 @@ export function Hero() {
                         onToggle={() => handleDropdownToggle('about')}
                     />
                     <NavDropdown
-                        label="實驗室"
+                        label="留言板"
                         items={labItems}
                         isOpen={openDropdown === 'lab'}
                         onToggle={() => handleDropdownToggle('lab')}
