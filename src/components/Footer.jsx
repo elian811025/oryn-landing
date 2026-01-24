@@ -35,6 +35,15 @@ function EmailIcon() {
     )
 }
 
+function ThreadsIcon() {
+    return (
+        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.15 2.5C6.918 2.5 2.664 6.754 2.664 11.986c0 5.23 4.254 9.486 9.486 9.486 2.38 0 4.572-.88 6.273-2.33l-1.397-1.428c-1.353 1.155-3.09 1.83-4.876 1.83-3.084 0-5.69-2.072-6.425-4.897h12.59c.142-.513.22-1.048.22-1.603 0-5.187-3.95-9.544-6.38-9.544zm0 2.058c3.55 0 6.31 3.23 6.31 7.486H5.84c.73-4.257 3.49-7.486 6.31-7.486z" />
+            <path d="M12.72 17.5c-4.43 0-8.12-3.01-8.12-8.3C4.6 4.07 8.16 1 12.72 1c4.89 0 7.84 3.47 7.84 8.13 0 4.63-2.45 7.64-5.87 7.64-1.74 0-2.88-1.05-2.88-2.61h-.06c-.84 1.77-2.31 2.61-4.23 2.61-2.91 0-5.19-2.22-5.19-5.46 0-3.3 2.31-5.55 5.34-5.55 1.74 0 3.09.84 3.75 2.19h.06v-1.92h3.39v9.63c0 1.23.63 1.83 1.59 1.83.99 0 1.8-1.02 1.8-3.39 0-3.36-2.01-6.27-5.55-6.27-2.94 0-4.86 2.07-4.86 4.74 0 1.56.99 2.76 2.52 2.76.96 0 1.83-.51 2.28-1.44H13c-.63 1.89-2 2.94-3.57 2.94-2.19 0-3.69-1.68-3.69-3.99 0-2.4 1.74-4.05 3.96-4.05 1.47 0 2.58.78 3.12 1.95h.09V8.13h-3.39v.66c0 5.16 6.18 5.76 7.62 1.35.9-2.76-.09-5.64-4.74-5.64-4.14 0-7.23 3.06-7.23 7.56 0 4.38 3.09 7.47 7.59 7.47 2.22 0 4.17-.87 5.73-2.19l-1.35-1.5c-1.17 1.02-2.73 1.62-4.38 1.62z" fillRule="evenodd" clipRule="evenodd" />
+        </svg>
+    )
+}
+
 export function Footer() {
     // Social links configuration
     const socialLinks = [
@@ -45,9 +54,14 @@ export function Footer() {
             highlight: true
         },
         {
-            href: "https://www.instagram.com/oryn.tw?igsh=Ym42bW1nZXoyY2Ny",
+            href: "https://www.instagram.com/oryn_saas?igsh=MTQyMXMwZnViMGk3eA==",
             label: "Instagram",
             Icon: InstagramIcon
+        },
+        {
+            href: "https://www.threads.com/@oryn_saas",
+            label: "Threads",
+            Icon: ThreadsIcon
         },
         {
             href: "https://x.com/ORYN_tw",
@@ -65,10 +79,10 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: slowEase }}
         >
-            <div className="max-w-4xl mx-auto">
-                {/* Social Links Grid - Minimalist Outlined Cards */}
+            <div className="max-w-6xl mx-auto">
+                {/* Social Links Grid - 5 Columns */}
                 <motion.div
-                    className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
+                    className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-12"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -83,10 +97,10 @@ export function Footer() {
                             rel="noopener noreferrer"
                             className={`
                                 flex flex-col items-center justify-center gap-3 py-6 px-4 rounded-xl
-                                bg-transparent border transition-all duration-300
+                                backdrop-blur-sm transition-all duration-300 relative group overflow-hidden
                                 ${highlight
-                                    ? 'border-[#D4AF37]/50 text-[#D4AF37] hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]'
-                                    : 'border-white/10 text-[#A1A1AA] hover:border-[#D4AF37] hover:text-[#D4AF37]'}
+                                    ? 'bg-[#D4AF37]/5 border border-[#D4AF37]/30 text-[#D4AF37] hover:bg-[#D4AF37]/20 hover:border-[#D4AF37] hover:shadow-[0_0_30px_rgba(212,175,55,0.3)]'
+                                    : 'bg-white/5 border border-white/10 text-[#A1A1AA] hover:border-[#D4AF37] hover:bg-[#D4AF37]/5 hover:text-[#D4AF37] hover:shadow-[0_0_20px_rgba(212,175,55,0.2)]'}
                             `}
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -96,34 +110,52 @@ export function Footer() {
                                 delay: 0.2 + index * 0.1,
                                 ease: slowEase
                             }}
-                            whileHover={{ scale: 1.02 }}
+                            whileHover={{ scale: 1.05 }}
                         >
-                            <Icon />
-                            <span className="text-sm font-medium">{label}</span>
+                            {/* Neon Flow Effect */}
+                            <motion.div
+                                className={`absolute inset-0 w-1/2 h-full opacity-0 group-hover:opacity-100 ${highlight ? 'bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent' : 'bg-gradient-to-r from-transparent via-white/20 to-transparent'}`}
+                                style={{ skewX: -20, filter: 'blur(10px)' }}
+                                animate={{ x: ['-150%', '350%'] }}
+                                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                            />
+
+                            {/* Constant subtle flow for "Flamboyant" feel requested */}
+                            <motion.div
+                                className={`absolute inset-0 w-full h-full opacity-10 ${highlight ? 'bg-gradient-to-tr from-transparent via-[#D4AF37] to-transparent' : 'bg-gradient-to-tr from-transparent via-white to-transparent'}`}
+                                animate={{ backgroundPosition: ['0% 0%', '100% 100%'] }}
+                                transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }}
+                                style={{ backgroundSize: '200% 200%' }}
+                            />
+
+                            <div className="relative z-10 flex flex-col items-center gap-3">
+                                <Icon />
+                                <span className="text-sm font-medium">{label}</span>
+                            </div>
                         </motion.a>
                     ))}
 
                     {/* Email (static) */}
                     <motion.div
-                        className="flex flex-col items-center justify-center gap-3 py-6 px-4 rounded-xl bg-transparent border border-white/10 text-[#A1A1AA]"
+                        className="flex flex-col items-center justify-center gap-2 py-6 px-4 rounded-xl bg-white/5 border border-white/10 text-[#A1A1AA] transition-all duration-300 hover:border-[#D4AF37] hover:shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:text-[#D4AF37] hover:scale-105"
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{
                             duration: 0.8,
-                            delay: 0.5,
+                            delay: 0.6,
                             ease: slowEase
                         }}
                     >
                         <EmailIcon />
                         <span className="text-sm font-medium">Email</span>
-                        <span className="text-xs text-neutral-500">oryn.tw@gmail.com</span>
+                        <span className="text-[10px] sm:text-xs text-neutral-500 font-mono">oryn.tw@gmail.com</span>
                     </motion.div>
                 </motion.div>
 
                 {/* Copyright */}
                 <motion.p
-                    className="text-center text-neutral-600 text-sm"
+                    className="text-center text-neutral-600 text-sm font-mono"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}

@@ -1,64 +1,32 @@
 import { motion } from 'framer-motion'
 
 // --- Background Components ---
-const BackgroundAnimation = () => {
+const TechnicalBackground = () => {
     return (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {/* 1. Organic Liquid Gold Aurora */}
-            <motion.div
-                className="absolute inset-0 opacity-[0.08]"
-                animate={{
-                    background: [
-                        "radial-gradient(circle at 0% 0%, rgba(212, 175, 55, 0.15) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(255, 165, 0, 0.1) 0%, transparent 50%)",
-                        "radial-gradient(circle at 100% 0%, rgba(212, 175, 55, 0.15) 0%, transparent 50%), radial-gradient(circle at 0% 100%, rgba(255, 165, 0, 0.1) 0%, transparent 50%)",
-                        "radial-gradient(circle at 0% 0%, rgba(212, 175, 55, 0.15) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(255, 165, 0, 0.1) 0%, transparent 50%)"
-                    ]
-                }}
-                transition={{
-                    duration: 15,
-                    repeat: Infinity,
-                    ease: "easeInOut"
+        <div className="absolute inset-0 overflow-hidden pointer-events-none bg-[#050505]">
+            {/* 1. Base Grid Layer */}
+            <div
+                className="absolute inset-0"
+                style={{
+                    backgroundImage: `linear-gradient(to right, #1a1a1a 1px, transparent 1px), linear-gradient(to bottom, #1a1a1a 1px, transparent 1px)`,
+                    backgroundSize: '40px 40px',
+                    opacity: 0.5
                 }}
             />
 
-            {/* 2. Floating Bioluminescent Orbs */}
-            {[...Array(6)].map((_, i) => (
-                <motion.div
-                    key={i}
-                    className="absolute rounded-full blur-[80px]"
-                    initial={{
-                        x: Math.random() * 100 + "%",
-                        y: Math.random() * 100 + "%",
-                        scale: Math.random() * 0.5 + 0.5,
-                        opacity: 0
-                    }}
-                    animate={{
-                        x: [
-                            (Math.random() * 100) + "%",
-                            (Math.random() * 100) + "%",
-                            (Math.random() * 100) + "%"
-                        ],
-                        y: [
-                            (Math.random() * 100) + "%",
-                            (Math.random() * 100) + "%",
-                            (Math.random() * 100) + "%"
-                        ],
-                        opacity: [0.1, 0.3, 0.1],
-                    }}
-                    transition={{
-                        duration: 15 + Math.random() * 10,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                    style={{
-                        width: Math.random() * 200 + 100 + 'px', // Smaller orbs
-                        height: Math.random() * 200 + 100 + 'px',
-                        backgroundColor: i % 2 === 0 ? '#FFA500' : '#FFD700',
-                    }}
-                />
-            ))}
+            {/* 2. Secondary Fine Grid */}
+            <div
+                className="absolute inset-0"
+                style={{
+                    backgroundImage: `linear-gradient(to right, #111 1px, transparent 1px), linear-gradient(to bottom, #111 1px, transparent 1px)`,
+                    backgroundSize: '10px 10px',
+                    opacity: 0.3
+                }}
+            />
 
-
+            {/* 3. Radial Fade for Depth */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-[#050505]" />
         </div>
     )
 }
@@ -68,142 +36,174 @@ const releasedProducts = [
     {
         id: 'thesis_fixer',
         title: '論文格式救星',
-        desc: '丟入 Word 檔，自動校正 APA/MLA 格式、對齊目錄與頁碼。省下最後那崩潰的 5 小時排版時間。',
+        titleEn: 'THESIS FORMATTING LIFESAVER',
+        details: '丟入 Word 檔，自動校正格式。',
         externalLink: 'https://thesis.oryn.tw',
-        status: 'Beta',
-        category: '🌐 Web App',
-        icon: '📄',
-        buttonText: '🚀 立即使用'
+        status: 'BETA',
+        version: 'v0.9.2',
+        category: 'UTILITY_TOOL',
+        icon: 'T',
+        actionText: '啟動校正程序'
     },
     {
         id: 'prisma_knowledge',
         title: 'Prisma 知識全貌',
-        desc: '結合 Gemini 2.0 與維基百科，將知識視覺化。從一個節點展開整個宇宙，發現那些原本看不見的隱形連結與邏輯。',
+        titleEn: 'PRISMA KNOWLEDGE GRAPH',
+        details: '結合與維基百科，將知識視覺化。',
         externalLink: 'https://prisma.oryn.tw',
-        status: 'New',
-        category: '🌐 Web App',
-        icon: '🔮',
-        buttonText: '🔮 立即探索'
+        status: 'STABLE',
+        version: 'v1.0.4',
+        category: 'DATA_VIS',
+        icon: 'P',
+        actionText: '展開知識宇宙'
     },
     {
         id: 'hex_strategy',
         title: 'HEX 戰略沙盤',
-        desc: '將複雜的思緒整理成清晰的戰略地圖，用無限的畫布釐清每一個戰略決策',
+        titleEn: 'HEX STRATEGY BOARD',
+        details: '將複雜的思緒整理成清晰的戰略地圖。',
         externalLink: 'https://nex.oryn.tw',
-        status: 'New',
-        category: '🌐 Web App',
-        icon: '🗺️',
-        buttonText: '🗺️ 立即探索'
+        status: 'LATEST',
+        version: 'v1.1.0',
+        category: 'STRATEGY',
+        icon: 'H',
+        actionText: '進入戰略室'
+    },
+    {
+        id: 'thesis_formatting_lifesaver',
+        title: '論文格式救星',
+        titleEn: 'THESIS FORMATTING LIFESAVER',
+        details: '在純淨的雲端介面中直接撰寫論文，完美的 Word 檔即刻生成。',
+        externalLink: 'https://thesis-formatting-lifesaver.oryn.tw/',
+        status: 'DEV',
+        version: 'v0.1.0',
+        category: 'EDITOR',
+        icon: 'W',
+        actionText: '進入專注模式'
     }
 ]
 
 export function EvolutionLab() {
     return (
-        <section id="products" className="py-24 px-8 bg-[#050505] relative overflow-hidden">
-            {/* Animated Background System */}
-            <BackgroundAnimation />
-
-            {/* Reduced reduced blur and opacity */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#FFD700]/3 rounded-full blur-[100px] pointer-events-none" />
+        <section id="products" className="py-32 px-4 bg-[#050505] relative overflow-hidden border-t border-white/5">
+            <TechnicalBackground />
 
             <div className="max-w-7xl mx-auto relative z-10">
                 {/* Section Header */}
-                <motion.div
-                    className="text-center mb-16"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                >
-                    <h2 className="text-5xl lg:text-7xl font-bold mb-6 text-white tracking-tighter">
-                        願望成真區
-                    </h2>
-                    <div className="w-24 h-1 bg-[#FFD700] mx-auto mb-6 rounded-full opacity-50" />
-                    <p className="text-xl text-[#A1A1AA] font-light tracking-widest">
-                        BEYOND THE LAB : REALIZED ASSETS
-                    </p>
-                </motion.div>
+                <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8 gap-6">
+                    <div>
+                        <div className="flex items-center gap-3 mb-2 text-white/40 font-mono text-sm tracking-widest">
+                            <span className="w-2 h-2 bg-white/40 block" />
+                            模組：現實化資產 [REALIZED_ASSETS]
+                        </div>
+                        <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter">
+                            願望成真區
+                        </h2>
+                    </div>
+                    <div className="text-right hidden md:block">
+                        <p className="text-white/40 font-mono text-xs tracking-[0.2em] mb-1">系統狀態 [SYSTEM STATUS]</p>
+                        <div className="flex items-center gap-2 justify-end text-emerald-500 font-mono text-sm">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            運行中 [OPERATIONAL]
+                        </div>
+                    </div>
+                </div>
 
                 {/* Products Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                     {releasedProducts.map((product, index) => (
                         <motion.div
                             key={product.id}
-                            initial={{ opacity: 0, y: 40 }}
+                            initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.2, duration: 0.8 }}
-                            className="group relative bg-[#0a0a0a]/80 backdrop-blur-xl border border-[#FFD700]/20 rounded-3xl p-10 hover:border-[#FFD700]/50 transition-all duration-500 hover:shadow-[0_0_50px_rgba(255,215,0,0.1)]"
+                            transition={{ delay: index * 0.1, duration: 0.5 }}
+                            className="group relative bg-[#0a0a0a] border border-white/10 p-6 md:p-8 hover:border-[#D4AF37] transition-all duration-300 flex flex-col h-full overflow-hidden"
                         >
-                            {/* Inner Card Glow */}
-                            <div className="absolute -inset-0.5 bg-gradient-to-br from-[#FFD700]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none" />
+                            {/* Neon Flow Effect */}
+                            <motion.div
+                                className="absolute inset-0 w-1/2 h-full opacity-0 group-hover:opacity-100 bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent"
+                                style={{ skewX: -20, filter: 'blur(10px)' }}
+                                animate={{ x: ['-150%', '350%'] }}
+                                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                            />
 
-                            <div className="relative z-10">
-                                {/* Status Badge */}
-                                <div className="flex justify-between items-center mb-8">
-                                    <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#FFD700]/60 font-bold">
-                                        {product.category}
-                                    </span>
-                                    <span className="px-4 py-1.5 text-xs font-bold bg-[#FFA500]/10 text-[#FFA500] rounded-full border border-[#FFA500]/20">
-                                        {product.status}
-                                    </span>
+                            <motion.div
+                                className="absolute inset-0 w-full h-full opacity-0 group-hover:opacity-10 bg-gradient-to-tr from-transparent via-[#D4AF37] to-transparent"
+                                animate={{ backgroundPosition: ['0% 0%', '100% 100%'] }}
+                                transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }}
+                                style={{ backgroundSize: '200% 200%' }}
+                            />
+
+                            <div className="absolute top-0 right-0 p-4 opacity-100 transition-opacity z-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-white/20 group-hover:text-[#D4AF37] transition-colors"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                            </div>
+
+                            <div className="mb-6 flex justify-between items-start relative z-10">
+                                <div className="w-12 h-12 bg-white/5 border border-white/10 flex items-center justify-center text-xl font-mono text-white/80 group-hover:bg-[#D4AF37] text-black group-hover:text-black transition-colors duration-300">
+                                    {product.icon}
                                 </div>
-
-                                {/* Icon Display */}
-                                <div className="relative mb-8 text-6xl group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-500 inline-block">
-                                    <div className="absolute inset-0 bg-[#FFD700]/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                                    {product.icon || '📄'}
+                                <div className="text-right">
+                                    <div className="font-mono text-[10px] text-white/40 uppercase tracking-widest mb-1">編號: {product.status}</div>
+                                    <div className="font-mono text-[10px] text-white/20">{product.version}</div>
                                 </div>
+                            </div>
 
-                                <h3 className="text-3xl font-bold text-white mb-4 group-hover:text-[#FFD700] transition-colors">
+                            <div className="mt-auto relative z-10">
+                                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-[#D4AF37] transition-colors">
                                     {product.title}
                                 </h3>
-                                <p className="text-lg text-[#A1A1AA] leading-relaxed mb-10 font-light">
-                                    {product.desc}
+                                <p className="text-xs font-mono text-white/40 mb-6 tracking-wide uppercase">
+                                    {product.titleEn}
                                 </p>
 
-                                {/* CTA Button */}
-                                <a
-                                    href={product.externalLink}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="group/btn relative w-full h-16 flex items-center justify-center overflow-hidden rounded-2xl bg-[#FFD700] hover:bg-[#E5C100] transition-colors duration-300 shadow-[0_4px_20px_rgba(255,215,0,0.15)] hover:shadow-[0_4px_25px_rgba(255,215,0,0.25)]"
-                                >
-                                    {/* Subtle shine effect */}
-                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 ease-in-out" />
+                                <div className="space-y-4 border-t border-white/5 pt-6">
+                                    <p className="text-lg text-white/90 leading-relaxed font-medium">
+                                        {product.details}
+                                    </p>
+                                </div>
 
-                                    <span className="relative font-bold text-[#1A1A1A] text-xl flex items-center gap-2">
-                                        {product.buttonText || '🚀 立即使用'}
-                                    </span>
-                                </a>
+                                {/* Explicit Action Button */}
+                                <div className="mt-8 pt-0">
+                                    <a
+                                        href={product.externalLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center justify-between w-full px-4 py-3 bg-white/5 hover:bg-[#D4AF37] hover:text-black hover:border-[#D4AF37] border border-white/10 transition-all duration-300 group/btn"
+                                    >
+                                        <span className="text-sm font-mono tracking-wide">{product.actionText}</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transform group-hover/btn:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                    </a>
+                                </div>
                             </div>
+
+                            {/* Corner Accents */}
+                            <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-white/20 group-hover:border-[#D4AF37]/50 transition-colors" />
+                            <div className="absolute bottom-0 right-0 w-2 h-2 border-r border-b border-white/20 group-hover:border-[#D4AF37]/50 transition-colors" />
                         </motion.div>
                     ))}
 
-                    {/* Coming Soon Placeholder */}
-                    <motion.a
-                        href="#voting"
-                        initial={{ opacity: 0, y: 40 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                    {/* Pending Node Placeholder */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.3, duration: 0.8 }}
-                        className="relative bg-[#0a0a0a]/40 border-2 border-dashed border-[#FFD700]/10 rounded-3xl p-10 flex flex-col items-center justify-center text-center min-h-[400px] hover:border-[#FFD700]/40 transition-all duration-500 group overflow-hidden"
+                        transition={{ delay: 0.4 }}
+                        className="relative border border-dashed border-white/10 p-8 flex flex-col items-center justify-center text-center bg-transparent group min-h-[300px]"
                     >
-                        {/* Background Particles for Placeholder */}
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity">
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle,rgba(255,215,0,0.2)_0%,transparent_70%)]" />
-                        </div>
+                        <h3 className="text-xl font-bold text-white/20 mb-2">等待輸入 [AWAITING_INPUT]</h3>
+                        <p className="font-mono text-xs text-white/20 mb-6">下個迭代計算中...</p>
 
-                        <div className="relative z-10">
-                            <div className="text-6xl mb-6 opacity-40 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500">🔮</div>
-                            <h3 className="text-2xl font-bold text-[#A1A1AA] group-hover:text-white mb-4 transition-colors">下一個奇蹟？</h3>
-                            <p className="text-[#A1A1AA]/60 text-lg group-hover:text-[#A1A1AA] transition-colors max-w-xs font-light">
-                                命運掌握在你手裡！<br />
-                                <span className="text-[#FFD700]/80 font-bold group-hover:text-[#FFA500]">前往 功能許願池</span><br />
-                                丟下硬幣決定下一個功能的降臨
-                            </p>
-                        </div>
-                    </motion.a>
+                        <a
+                            href="#messages"
+                            className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 text-xs font-mono text-white/60 hover:bg-white hover:text-black transition-all duration-300"
+                        >
+                            <span>前往留言 [MESSAGE_BOARD]</span>
+                        </a>
+                    </motion.div>
                 </div>
             </div>
         </section>

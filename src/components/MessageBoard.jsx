@@ -96,9 +96,9 @@ export function MessageBoard() {
 
     // Format timestamp
     const formatTime = (timestamp) => {
-        if (!timestamp) return ''
+        if (!timestamp) return '--/-- --:--'
         const date = new Date(timestamp)
-        return date.toLocaleString('zh-TW')
+        return `${date.getMonth() + 1}/${date.getDate()} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`
     }
 
     // Split messages into dev logs and community messages
@@ -106,136 +106,155 @@ export function MessageBoard() {
     const communityMessages = messages.filter(m => m.is_dev !== true)
 
     return (
-        <section id="messages" className="py-24 px-4 md:px-8 bg-[#050505] w-full">
-            <div className="w-full max-w-[1920px] mx-auto">
+        <section id="messages" className="py-24 px-4 md:px-8 bg-[#050505] w-full border-t border-white/5 relative">
+
+            {/* Background Grid for Continuity */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        backgroundImage: `linear-gradient(to right, #111 1px, transparent 1px), linear-gradient(to bottom, #111 1px, transparent 1px)`,
+                        backgroundSize: '20px 20px',
+                        opacity: 0.2
+                    }}
+                />
+            </div>
+
+            <div className="w-full max-w-7xl mx-auto relative z-10">
                 {/* Section Header */}
                 <motion.div
-                    className="text-center mb-16"
+                    className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-white/10 pb-6 gap-6"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                 >
-                    <h2 className="text-4xl lg:text-5xl font-bold mb-4 text-[#EAEAEA]">
-                        來聊聊天 / 聽聽你的想法
-                    </h2>
-                    <p className="text-[#A1A1AA]">Communication Hub</p>
+                    <div>
+                        <div className="flex items-center gap-3 mb-2 text-white/40 font-mono text-sm tracking-widest">
+                            <span className="w-2 h-2 bg-white/40 block" />
+                            模組：訊號交換 [SIGNAL_EXCHANGE]
+                        </div>
+                        <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                            交流訊號
+                        </h2>
+                    </div>
+                    <div className="hidden md:block text-right">
+                        <div className="flex items-center justify-end gap-4 text-xs font-mono text-white/40">
+                            <span>TOTAL_MSGS: {messages.length}</span>
+                            <span>ACTIVE_NODES: 2</span>
+                        </div>
+                    </div>
                 </motion.div>
 
                 {/* Two Column Layout */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-                    {/* Left Column - Dev Log */}
+                    {/* Left Column - Dev Log (System Log) */}
                     <motion.div
-                        className="bg-[#0a0a0a] border border-[#D4AF37]/20 rounded-2xl p-6"
+                        className="flex flex-col h-full"
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                     >
-                        <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[#D4AF37]/20">
-                            <span className="text-2xl">👨‍💻</span>
-                            <h3 className="text-xl font-bold text-[#D4AF37]">魔法師的修練日記</h3>
-                            <span className="text-xs bg-[#D4AF37]/10 text-[#D4AF37] px-2 py-1 rounded-full">Dev Log</span>
+                        <div className="bg-[#0a0a0a] border border-white/10 border-b-0 p-3 flex items-center justify-between">
+                            <h3 className="text-sm font-bold text-white/80 font-mono tracking-wider">系統日誌 [SYSTEM_LOGS]</h3>
+                            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                         </div>
 
-                        <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2">
-                            {loading ? (
-                                <p className="text-[#A1A1AA] text-center py-8">載入中...</p>
-                            ) : devMessages.length === 0 ? (
-                                <p className="text-[#A1A1AA] text-center py-8">暫無訊息</p>
-                            ) : (
-                                devMessages.map((msg, index) => (
-                                    <motion.div
-                                        key={msg.id || `dev-${index}`}
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: index * 0.1 }}
-                                        className="bg-[#D4AF37]/5 border border-[#D4AF37]/20 rounded-xl p-6"
-                                    >
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <span className="text-[#D4AF37] font-bold text-xl md:text-2xl">🔧 {msg.name === 'oryn.tw' ? '【開發者】' : msg.name}</span>
-                                            <span className="text-[#A1A1AA] text-lg">{formatTime(msg.created_at)}</span>
+                        <div className="bg-[#050505] border border-white/10 flex-1 min-h-[400px] max-h-[600px] overflow-hidden relative">
+                            {/* Scrollable Area */}
+                            <div className="absolute inset-0 overflow-y-auto p-4 space-y-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+                                {loading ? (
+                                    <p className="text-white/20 font-mono text-xs p-2">LOADING_DATA...</p>
+                                ) : devMessages.length === 0 ? (
+                                    <p className="text-white/20 font-mono text-xs p-2">NO_LOGS_FOUND</p>
+                                ) : (
+                                    devMessages.map((msg, index) => (
+                                        <div key={msg.id || `dev-${index}`} className="group hover:bg-white/5 transition-colors p-2 border-l-2 border-transparent hover:border-emerald-500/50">
+                                            <div className="flex flex-wrap gap-x-3 text-xs font-mono text-emerald-500/60 mb-1">
+                                                <span>[{formatTime(msg.created_at)}]</span>
+                                                <span className="text-emerald-500 font-bold uppercase">{msg.name === 'oryn.tw' ? 'SYS_ADMIN' : msg.name}</span>
+                                            </div>
+                                            <p className="text-white/80 text-sm leading-relaxed font-light pl-2 border-l border-emerald-500/20 ml-1">
+                                                {msg.content}
+                                            </p>
                                         </div>
-                                        <p className="text-[#EAEAEA] text-2xl md:text-3xl leading-relaxed font-medium">{msg.content}</p>
-                                    </motion.div>
-                                ))
-                            )}
+                                    ))
+                                )}
+                            </div>
                         </div>
                     </motion.div>
 
-                    {/* Right Column - Community */}
+                    {/* Right Column - Community (External Input) */}
                     <motion.div
-                        className="bg-[#0a0a0a] border border-white/5 rounded-2xl p-6"
+                        className="flex flex-col h-full"
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                     >
-                        <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/5">
-                            <span className="text-2xl">💬</span>
-                            <h3 className="text-xl font-bold text-stone-200">冒險者留言板</h3>
-                            <span className="text-xs bg-stone-200/10 text-stone-300 px-2 py-1 rounded-full"></span>
+                        <div className="bg-[#0a0a0a] border border-white/10 border-b-0 p-3 flex items-center justify-between">
+                            <h3 className="text-sm font-bold text-white/80 font-mono tracking-wider">外部輸入 [EXTERNAL_INPUTS]</h3>
+                            <div className="w-2 h-2 rounded-full bg-white/20" />
                         </div>
 
-                        {/* Message Input Form */}
-                        <form onSubmit={handleSubmit} className="mb-6 space-y-4">
-                            {/* Name Input */}
-                            <input
-                                type="text"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                placeholder="你的大名 (或是帥氣代號)"
-                                className="w-full bg-[#0a0a0a] border border-neutral-800 rounded-xl px-6 py-4 text-[#EAEAEA] text-xl placeholder-neutral-600 focus:border-[#D4AF37] outline-none transition-colors"
-                            />
+                        <div className="bg-[#0a0a0a] border border-white/10 p-0 flex flex-col h-full min-h-[400px]">
 
-                            {/* Message Textarea */}
-                            <textarea
-                                value={content}
-                                onChange={(e) => setContent(e.target.value)}
-                                placeholder="留個言給開發者，或是跟大家打招呼..."
-                                rows={6}
-                                className="w-full bg-[#0a0a0a] border border-neutral-800 rounded-xl px-6 py-4 text-[#EAEAEA] text-xl placeholder-neutral-600 focus:border-[#D4AF37] outline-none transition-colors resize-none"
-                            />
-
-                            {/* Submit Button */}
-                            <button
-                                type="submit"
-                                disabled={isSubmitting}
-                                className="w-full px-6 py-4 bg-[#D4AF37] hover:bg-[#B8860B] disabled:bg-neutral-800 disabled:text-neutral-500 disabled:cursor-not-allowed text-black text-xl font-bold rounded-xl transition-colors flex items-center justify-center gap-2 shadow-lg hover:shadow-[#D4AF37]/20"
-                            >
-                                {isSubmitting ? (
-                                    <>
-                                        <svg className="animate-spin h-6 w-6" viewBox="0 0 24 24">
-                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                                        </svg>
-                                        發送中...
-                                    </>
-                                ) : '貼上佈告欄'}
-                            </button>
-                        </form>
-
-                        {/* Messages List */}
-                        <div className="space-y-4 max-h-[380px] overflow-y-auto pr-2">
-                            {loading ? (
-                                <p className="text-[#A1A1AA] text-center py-8">載入中...</p>
-                            ) : communityMessages.length === 0 ? (
-                                <p className="text-[#A1A1AA] text-center py-8">還沒人留言？快來搶頭香！🏆</p>
-                            ) : (
-                                communityMessages.map((msg, index) => (
-                                    <motion.div
-                                        key={msg.id || `community-${index}`}
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: index * 0.05 }}
-                                        className="bg-white/5 border border-white/5 rounded-xl p-6"
-                                    >
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <span className="text-stone-300 font-bold text-xl md:text-2xl">{msg.name || '匿名'}</span>
-                                            <span className="text-[#A1A1AA] text-lg">{formatTime(msg.created_at)}</span>
+                            {/* Input Area (Top) */}
+                            <div className="p-4 border-b border-white/10 bg-[#050505]">
+                                <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+                                    <div className="flex gap-3">
+                                        <input
+                                            type="text"
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                            placeholder="代號 (選填)..."
+                                            className="w-1/3 bg-[#0a0a0a] border border-white/10 px-3 py-2 text-white text-xs font-mono placeholder-white/20 focus:border-white/40 outline-none transition-colors"
+                                        />
+                                        <div className="flex-1 relative">
+                                            <input
+                                                type="text"
+                                                value={content}
+                                                onChange={(e) => setContent(e.target.value)}
+                                                placeholder="輸入指令或訊息..."
+                                                className="w-full bg-[#0a0a0a] border border-white/10 px-3 py-2 text-white text-xs font-mono placeholder-white/20 focus:border-white/40 outline-none transition-colors"
+                                            />
                                         </div>
-                                        <p className="text-[#EAEAEA] text-2xl md:text-3xl leading-relaxed font-medium">{msg.content}</p>
-                                    </motion.div>
-                                ))
-                            )}
+                                        <button
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                            className="px-4 py-2 bg-white text-black text-xs font-bold font-mono hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                        >
+                                            {isSubmitting ? 'SENDING...' : 'SEND'}
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            {/* Messages List (Bottom) */}
+                            <div className="flex-1 overflow-y-auto p-4 space-y-1 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent max-h-[500px]">
+                                {loading ? (
+                                    <p className="text-white/20 font-mono text-xs">LOADING_FEED...</p>
+                                ) : communityMessages.length === 0 ? (
+                                    <p className="text-white/20 font-mono text-xs">NO_INPUTS_DETECTED</p>
+                                ) : (
+                                    communityMessages.map((msg, index) => (
+                                        <div key={msg.id || `community-${index}`} className="flex gap-3 py-2 px-2 hover:bg-white/5 transition-colors group border-b border-white/[0.03] last:border-0">
+                                            <div className="shrink-0 w-24 text-right">
+                                                <div className="text-[10px] font-mono text-white/30">{formatTime(msg.created_at)}</div>
+                                            </div>
+                                            <div className="w-px bg-white/10 self-stretch" />
+                                            <div className="flex-1 min-w-0">
+                                                <div className="text-xs font-bold text-white/40 font-mono mb-0.5 group-hover:text-white/60 transition-colors">
+                                                    {msg.name || 'ANONYMOUS'}
+                                                </div>
+                                                <p className="text-white/80 text-sm break-words leading-snug">
+                                                    {msg.content}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+
                         </div>
                     </motion.div>
                 </div>

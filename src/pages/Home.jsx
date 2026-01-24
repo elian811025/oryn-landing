@@ -2,7 +2,6 @@ import { Hero } from '../components/Hero'
 import { MessageBoard } from '../components/MessageBoard'
 import { AboutMe } from '../components/AboutMe'
 import { EvolutionLab } from '../components/EvolutionLab'
-import { VotingSection } from '../components/VotingSection'
 import { Footer } from '../components/Footer'
 
 function Home() {
@@ -20,12 +19,7 @@ function Home() {
             {/* 4. Released Products (已完成產品) */}
             <EvolutionLab />
 
-            {/* 5. Voting & Leaderboard (許願排行榜) */}
-            <VotingSection />
-
-            {/* 6. Wishlist is now part of VotingSection */}
-
-            {/* 7. Socials & Footer */}
+            {/* 5. Socials & Footer */}
             <Footer />
         </div>
     )
