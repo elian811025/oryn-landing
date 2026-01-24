@@ -35,14 +35,14 @@ const TechnicalBackground = () => {
 const releasedProducts = [
     {
         id: 'thesis_fixer',
-        title: '論文格式救星',
+        title: '論文格式救星 (舊版)',
         titleEn: 'THESIS FORMATTING LIFESAVER',
         details: '丟入 Word 檔，自動校正格式。',
         externalLink: 'https://thesis.oryn.tw',
         status: 'BETA',
         version: 'v0.9.2',
         category: 'UTILITY_TOOL',
-        icon: 'T',
+        logo: '/論文格式救星(舊版) logo.png',
         actionText: '啟動校正程序'
     },
     {
@@ -54,7 +54,7 @@ const releasedProducts = [
         status: 'STABLE',
         version: 'v1.0.4',
         category: 'DATA_VIS',
-        icon: 'P',
+        logo: '/Prisma 知識全貌 logo.png',
         actionText: '展開知識宇宙'
     },
     {
@@ -66,7 +66,7 @@ const releasedProducts = [
         status: 'LATEST',
         version: 'v1.1.0',
         category: 'STRATEGY',
-        icon: 'H',
+        logo: '/HEX 戰略沙盤 LOGO.png',
         actionText: '進入戰略室'
     },
     {
@@ -78,7 +78,7 @@ const releasedProducts = [
         status: 'DEV',
         version: 'v0.1.0',
         category: 'EDITOR',
-        icon: 'W',
+        logo: '/論文格式救星 logo.png',
         actionText: '進入專注模式'
     }
 ]
@@ -143,8 +143,8 @@ export function EvolutionLab() {
                             </div>
 
                             <div className="mb-6 flex justify-between items-start relative z-10">
-                                <div className="w-12 h-12 bg-white/5 border border-white/10 flex items-center justify-center text-xl font-mono text-white/80 group-hover:bg-[#D4AF37] text-black group-hover:text-black transition-colors duration-300">
-                                    {product.icon}
+                                <div className="w-16 h-16 bg-white/5 border border-white/10 flex items-center justify-center p-3 group-hover:bg-[#D4AF37]/10 group-hover:border-[#D4AF37]/50 transition-colors duration-300 rounded-lg overflow-hidden">
+                                    <img src={product.logo} alt={product.title} className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity" />
                                 </div>
                                 <div className="text-right">
                                     <div className="font-mono text-[10px] text-white/40 uppercase tracking-widest mb-1">編號: {product.status}</div>
