@@ -158,22 +158,22 @@ const DragonThroneBorder = ({ children }) => {
             <LightningArcs />
 
             {/* 2. Ornate Corners (Imperial Claws/Clouds Style) */}
-            <svg className="absolute top-0 left-0 w-16 h-16 text-[#D4AF37]" viewBox="0 0 100 100" fill="none">
+            <svg className="absolute top-0 left-0 w-16 h-16 text-[#D4AF37] z-20" viewBox="0 0 100 100" fill="none">
                 <path d="M2 100 V 20 Q 2 2 20 2 H 100" stroke="currentColor" strokeWidth="2" />
                 <path d="M15 100 V 25 Q 15 15 25 15 H 100" stroke="currentColor" strokeWidth="1" opacity="0.5" />
                 <rect x="0" y="0" width="8" height="8" fill="currentColor" />
             </svg>
-            <svg className="absolute top-0 right-0 w-16 h-16 text-[#D4AF37] rotate-90" viewBox="0 0 100 100" fill="none">
+            <svg className="absolute top-0 right-0 w-16 h-16 text-[#D4AF37] rotate-90 z-20" viewBox="0 0 100 100" fill="none">
                 <path d="M2 100 V 20 Q 2 2 20 2 H 100" stroke="currentColor" strokeWidth="2" />
                 <path d="M15 100 V 25 Q 15 15 25 15 H 100" stroke="currentColor" strokeWidth="1" opacity="0.5" />
                 <rect x="0" y="0" width="8" height="8" fill="currentColor" />
             </svg>
-            <svg className="absolute bottom-0 right-0 w-16 h-16 text-[#D4AF37] rotate-180" viewBox="0 0 100 100" fill="none">
+            <svg className="absolute bottom-0 right-0 w-16 h-16 text-[#D4AF37] rotate-180 z-20" viewBox="0 0 100 100" fill="none">
                 <path d="M2 100 V 20 Q 2 2 20 2 H 100" stroke="currentColor" strokeWidth="2" />
                 <path d="M15 100 V 25 Q 15 15 25 15 H 100" stroke="currentColor" strokeWidth="1" opacity="0.5" />
                 <rect x="0" y="0" width="8" height="8" fill="currentColor" />
             </svg>
-            <svg className="absolute bottom-0 left-0 w-16 h-16 text-[#D4AF37] -rotate-90" viewBox="0 0 100 100" fill="none">
+            <svg className="absolute bottom-0 left-0 w-16 h-16 text-[#D4AF37] -rotate-90 z-20" viewBox="0 0 100 100" fill="none">
                 <path d="M2 100 V 20 Q 2 2 20 2 H 100" stroke="currentColor" strokeWidth="2" />
                 <path d="M15 100 V 25 Q 15 15 25 15 H 100" stroke="currentColor" strokeWidth="1" opacity="0.5" />
                 <rect x="0" y="0" width="8" height="8" fill="currentColor" />
@@ -184,7 +184,7 @@ const DragonThroneBorder = ({ children }) => {
             <div className="absolute top-1/4 bottom-1/4 right-0 w-[1px] bg-gradient-to-b from-transparent via-[#D4AF37]/50 to-transparent" />
 
             {/* Content Container */}
-            <div className="relative z-10 p-8 md:p-16 bg-[#0a0a0a]/80 backdrop-blur-md border border-white/5 rounded-lg overflow-hidden">
+            <div className="relative z-10 p-5 md:p-16 bg-[#0a0a0a]/80 backdrop-blur-md border border-white/5 rounded-lg overflow-hidden">
                 {children}
             </div>
         </div>
@@ -510,7 +510,7 @@ export function AboutMe() {
                             </div>
 
                             {/* Content */}
-                            <div className="space-y-4 text-lg md:text-2xl text-white/80 leading-relaxed font-light font-serif tracking-widest drop-shadow-md">
+                            <div className="space-y-4 text-base md:text-2xl text-white/80 leading-relaxed font-light font-serif tracking-wider md:tracking-widest drop-shadow-md">
                                 <p>寒門難鎖凌雲志，淺水焉能困蛟龍。</p>
                                 <p>獨履荊棘闢乾坤，暗蓄風雷破長空。</p>
                                 <p>千回敗處心不死，捲土重來氣如虹。</p>
