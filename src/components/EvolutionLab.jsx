@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+// --- Imports ---
+import ProductGalaxy from './visuals/ProductGalaxy'
 
 // --- Data ---
 const releasedProducts = [
@@ -50,7 +51,7 @@ const releasedProducts = [
         id: 'thesis_fixer_legacy',
         title: '論文格式救星 (舊版)',
         titleEn: 'LEGACY UTILITY',
-        details: '經典的自動校正工具，協助數千名研究生度過難關。',
+        details: '上傳WORD檔，自動校正格式',
         externalLink: 'https://thesis.oryn.tw',
         status: 'LEGACY', // Gray
         version: 'v0.9.2',
@@ -59,102 +60,30 @@ const releasedProducts = [
     }
 ]
 
-// --- Color Helpers ---
-const getStatusColor = (status) => {
-    switch (status) {
-        case 'LATEST': return 'text-[#D4AF37] border-[#D4AF37]'
-        case 'DEV': return 'text-emerald-400 border-emerald-400'
-        case 'STABLE': return 'text-blue-400 border-blue-400'
-        default: return 'text-neutral-400 border-neutral-400'
-    }
-}
-
 export function EvolutionLab() {
     return (
-        <section id="products" className="py-32 px-4 md:px-8 bg-[#020202] relative overflow-hidden border-t border-white/5">
+        <section id="products" className="h-screen w-full bg-[#020202] relative overflow-hidden border-t border-white/5">
 
-            {/* Background: Clean, non-distracting grid */}
-            <div className="absolute inset-0 bg-[#020202]">
-                <div className="absolute inset-0 opacity-[0.03]"
-                    style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}
-                />
-            </div>
-
-            <div className="max-w-7xl mx-auto relative z-10">
-                {/* Header - Simple & Clear */}
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+            {/* Header Overlay - Absolute Position to float over Canvas */}
+            <div className="absolute top-10 left-0 right-0 z-20 pointer-events-none">
+                <div className="text-center">
+                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-2 tracking-tight drop-shadow-xl">
                         實驗室 <span className="text-[#D4AF37]">.</span> 產品
                     </h2>
-                    <p className="text-neutral-400 text-sm md:text-base font-light tracking-wide">
+                    <p className="text-neutral-400 text-sm md:text-base font-light tracking-wide drop-shadow-md">
                         REALIZED ASSETS & EVOLUTION
                     </p>
                 </div>
-
-                {/* Benton Grid Layout */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
-                    {releasedProducts.map((product, index) => (
-                        <motion.a
-                            key={product.id}
-                            href={product.externalLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group relative flex flex-col bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 hover:border-[#D4AF37]/50 rounded-2xl p-6 transition-all duration-300 overflow-hidden"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            whileHover={{ y: -5, boxShadow: "0 10px 40px -10px rgba(0,0,0,0.5)" }}
-                        >
-                            {/* Hover Highlight (Lightweight) */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/0 to-[#D4AF37]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                            {/* Top Row: Logo & Status */}
-                            <div className="flex justify-between items-start mb-6">
-                                <div className="w-14 h-14 rounded-xl bg-black/40 border border-white/10 p-2 flex items-center justify-center group-hover:border-[#D4AF37]/30 transition-colors">
-                                    <img src={product.logo} alt={product.title} className="w-full h-full object-contain opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" />
-                                </div>
-                                <span className={`text-[10px] font-mono font-bold px-2 py-1 rounded border ${getStatusColor(product.status)} bg-black/20`}>
-                                    {product.status}
-                                </span>
-                            </div>
-
-                            {/* Content */}
-                            <div className="flex-1">
-                                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-[#D4AF37] transition-colors">
-                                    {product.title}
-                                </h3>
-                                <p className="text-[10px] text-white/40 font-mono mb-4 tracking-widest uppercase">
-                                    {product.titleEn}
-                                </p>
-                                <p className="text-sm text-neutral-300 leading-relaxed font-light">
-                                    {product.details}
-                                </p>
-                            </div>
-
-                            {/* Fool-proof Action Button (Visually Distinct) */}
-                            <div className="mt-8 pt-4 border-t border-white/5 group-hover:border-[#D4AF37]/20 transition-colors">
-                                <div className="flex items-center justify-between text-[#D4AF37]">
-                                    <span className="text-xs font-bold font-mono tracking-wider group-hover:underline decoration-[#D4AF37]/50 underline-offset-4">
-                                        {product.actionText}
-                                    </span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transform group-hover:translate-x-1 transition-transform"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                                </div>
-                            </div>
-                        </motion.a>
-                    ))}
-
-                    {/* "More Coming" Placeholder (Last Card) */}
-                    <div className="relative border border-dashed border-white/10 rounded-2xl p-6 flex flex-col items-center justify-center text-center opacity-40 hover:opacity-100 transition-opacity">
-                        <div className="w-12 h-12 mb-4 rounded-full bg-white/5 flex items-center justify-center">
-                            <span className="text-xl text-white">+</span>
-                        </div>
-                        <h3 className="text-sm font-bold text-white">持續進化中</h3>
-                        <p className="text-xs text-neutral-500 font-mono mt-2">More Artifacts Coming Soon</p>
-                    </div>
-
-                </div>
             </div>
+
+            {/* The Planetary System */}
+            <ProductGalaxy products={releasedProducts} />
+
+            {/* Instruction Overlay */}
+            <div className="absolute bottom-10 w-full text-center pointer-events-none z-20">
+                <p className="text-white/30 text-xs font-mono tracking-[0.3em]">DRAG TO EXPLORE • CLICK TO ENTER</p>
+            </div>
+
         </section>
     )
 }
