@@ -4,10 +4,10 @@ import SolarSystem from './visuals/SolarSystem'
 
 // --- CSS 3D Text Component (Refined Typography) ---
 function CSS3DText({ children, delay, variant = 'gold', size = 'normal' }) {
-    // Sizing: Reduced as per request (Smaller body text)
-    // 'large' -> 2xl/4xl (Classic Cinematic size)
-    // 'normal' -> lg/2xl
-    const fontSize = size === 'large' ? 'text-2xl md:text-4xl' : 'text-lg md:text-2xl'
+    // Sizing: Responsive for mobile
+    // 'large' on mobile -> text-sm, on desktop -> 2xl/4xl
+    // 'normal' on mobile -> text-xs, on desktop -> lg/2xl
+    const fontSize = size === 'large' ? 'text-sm md:text-2xl lg:text-4xl' : 'text-xs md:text-lg lg:text-2xl'
 
     // Unifying to Gold based on user feedback
     const colorClass = 'text-liquid-gold'
@@ -54,29 +54,41 @@ export function AboutMeV2() {
                     {/* Poem - Cinematic Layout */}
                     <div className="perspective-[1000px] space-y-16 md:space-y-24 text-center mb-48">
                         <div>
-                            {/* Title - Kept Large */}
-                            <h2 className="text-6xl md:text-7xl font-black font-serif text-liquid-gold tracking-widest mb-20 drop-shadow-[0_0_30px_rgba(212,175,55,0.5)]">
+                            {/* Title - Responsive size */}
+                            <h2 className="text-2xl md:text-6xl lg:text-7xl font-black font-serif text-liquid-gold tracking-wider md:tracking-widest mb-10 md:mb-20 drop-shadow-[0_0_30px_rgba(212,175,55,0.5)]">
                                 《袖隱蒼龍》
                             </h2>
                         </div>
 
-                        {/* Staggered Lines - Removed hover scales */}
-                        <div className="space-y-12 md:space-y-16">
+                        {/* Staggered Lines - Mobile: split at comma */}
+                        <div className="space-y-6 md:space-y-16">
 
                             <div className="md:-translate-x-16">
-                                <CSS3DText delay={0.2} size="large">寒門難鎖凌雲志，淺水焉能困蛟龍。</CSS3DText>
+                                <CSS3DText delay={0.2} size="large">
+                                    <span className="block md:inline">寒門難鎖凌雲志，</span>
+                                    <span className="block md:inline">淺水焉能困蛟龍。</span>
+                                </CSS3DText>
                             </div>
 
                             <div className="md:translate-x-16">
-                                <CSS3DText delay={0.4} size="large">獨履荊棘闢乾坤，暗蓄風雷破長空。</CSS3DText>
+                                <CSS3DText delay={0.4} size="large">
+                                    <span className="block md:inline">獨履荊棘闢乾坤，</span>
+                                    <span className="block md:inline">暗蓄風雷破長空。</span>
+                                </CSS3DText>
                             </div>
 
                             <div className="md:-translate-x-16">
-                                <CSS3DText delay={0.6} size="large">千回敗處心不死，捲土重來氣如虹。</CSS3DText>
+                                <CSS3DText delay={0.6} size="large">
+                                    <span className="block md:inline">千回敗處心不死，</span>
+                                    <span className="block md:inline">捲土重來氣如虹。</span>
+                                </CSS3DText>
                             </div>
 
                             <div className="md:translate-x-16">
-                                <CSS3DText delay={0.8} size="large">一朝局定輪長轉，呼風喚雨傲蒼穹。</CSS3DText>
+                                <CSS3DText delay={0.8} size="large">
+                                    <span className="block md:inline">一朝局定輪長轉，</span>
+                                    <span className="block md:inline">呼風喚雨傲蒼穹。</span>
+                                </CSS3DText>
                             </div>
                         </div>
                     </div>
