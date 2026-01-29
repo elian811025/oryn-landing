@@ -80,6 +80,18 @@ const releasedProducts = [
         category: 'EDITOR',
         logo: '/論文格式救星 logo.png',
         actionText: '進入專注模式'
+    },
+    {
+        id: 'oryn_eyes',
+        title: 'ORYN Eyes 舊手機監視器',
+        titleEn: 'ORYN EYES SURVEILLANCE',
+        details: '把閒置的舊手機變成監視器，只要用手機/電腦就可以監看。',
+        externalLink: 'https://eyes.oryn.tw/',
+        status: 'LATEST',
+        version: 'v1.0.0',
+        category: 'IOT_TOOL',
+        logo: '/ORYN Eyes 舊手機監視器.png',
+        actionText: '開啟監控系統'
     }
 ]
 
