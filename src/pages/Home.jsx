@@ -1,7 +1,7 @@
 import { Hero } from '../components/Hero'
 import { MessageBoard } from '../components/MessageBoard'
 import { AboutMeV2 } from '../components/AboutMeV2'
-import { EvolutionLabV2 } from '../components/EvolutionLabV2'
+import { EvolutionLab } from '../components/EvolutionLab'
 import { Footer } from '../components/Footer'
 
 function Home() {
@@ -17,7 +17,7 @@ function Home() {
             <AboutMeV2 />
 
             {/* 4. Released Products (已完成產品) */}
-            <EvolutionLabV2 />
+            <EvolutionLab />
 
             {/* 5. Socials & Footer */}
             <Footer />
