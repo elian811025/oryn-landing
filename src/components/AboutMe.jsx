@@ -183,8 +183,8 @@ const DragonThroneBorder = ({ children }) => {
             <div className="absolute top-1/4 bottom-1/4 left-0 w-[1px] bg-gradient-to-b from-transparent via-[#D4AF37]/50 to-transparent" />
             <div className="absolute top-1/4 bottom-1/4 right-0 w-[1px] bg-gradient-to-b from-transparent via-[#D4AF37]/50 to-transparent" />
 
-            {/* Content Container */}
-            <div className="relative z-10 p-5 md:p-16 bg-[#0a0a0a]/80 backdrop-blur-md border border-white/5 rounded-lg overflow-hidden">
+            {/* Content Container - Reduced padding on mobile */}
+            <div className="relative z-10 p-3 md:p-16 bg-[#0a0a0a]/80 backdrop-blur-md border border-white/5 rounded-lg overflow-hidden">
                 {children}
             </div>
         </div>
@@ -502,15 +502,15 @@ export function AboutMe() {
 
                         {/* Center Wrapper for Alignment */}
                         <div className="flex flex-col items-center mb-12 text-center pt-8">
-                            {/* Header */}
-                            <div className="mb-6 md:mb-8">
-                                <h2 className="text-xl md:text-5xl font-bold mb-4 text-white tracking-tight drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+                            {/* Header - Much smaller on mobile */}
+                            <div className="mb-4 md:mb-8">
+                                <h2 className="text-lg md:text-5xl font-bold mb-2 md:mb-4 text-white tracking-tight drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
                                     《袖隱蒼龍》
                                 </h2>
                             </div>
 
-                            {/* Content - Mobile: split at comma, Desktop: full line */}
-                            <div className="space-y-4 md:space-y-4 text-sm md:text-2xl text-white/80 leading-relaxed font-light font-serif tracking-normal md:tracking-widest drop-shadow-md">
+                            {/* Content - Smaller text on mobile to fit single line */}
+                            <div className="space-y-3 md:space-y-4 text-xs md:text-2xl text-white/80 leading-relaxed font-light font-serif tracking-tight md:tracking-widest drop-shadow-md">
                                 <p>
                                     <span className="block md:inline">寒門難鎖凌雲志，</span>
                                     <span className="block md:inline">淺水焉能困蛟龍。</span>
