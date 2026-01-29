@@ -509,12 +509,12 @@ export function AboutMe() {
                                 </h2>
                             </div>
 
-                            {/* Content */}
-                            <div className="space-y-4 text-base md:text-2xl text-white/80 leading-relaxed font-light font-serif tracking-wider md:tracking-widest drop-shadow-md">
-                                <p>寒門難鎖凌雲志，淺水焉能困蛟龍。</p>
-                                <p>獨履荊棘闢乾坤，暗蓄風雷破長空。</p>
-                                <p>千回敗處心不死，捲土重來氣如虹。</p>
-                                <p>一朝局定輪長轉，呼風喚雨傲蒼穹。</p>
+                            {/* Content - Mobile optimized for Chinese poetry */}
+                            <div className="space-y-3 md:space-y-4 text-sm md:text-2xl text-white/80 leading-loose md:leading-relaxed font-light font-serif tracking-normal md:tracking-widest drop-shadow-md">
+                                <p className="whitespace-nowrap">寒門難鎖凌雲志，淺水焉能困蛟龍。</p>
+                                <p className="whitespace-nowrap">獨履荊棘闢乾坤，暗蓄風雷破長空。</p>
+                                <p className="whitespace-nowrap">千回敗處心不死，捲土重來氣如虹。</p>
+                                <p className="whitespace-nowrap">一朝局定輪長轉，呼風喚雨傲蒼穹。</p>
                             </div>
                         </div>
 
