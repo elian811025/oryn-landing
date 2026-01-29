@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap');
 
-/* Chinese Calligraphy Font */
+/* Chinese Calligraphy Font - Using Noto Serif TC Black for complete Traditional Chinese coverage */
 .font-calligraphy {
-  font-family: 'Ma Shan Zheng', 'Noto Serif TC', cursive;
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+  -webkit-text-stroke: 0.5px currentColor;
 }
 
 @import "tailwindcss";
