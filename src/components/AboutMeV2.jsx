@@ -7,7 +7,7 @@ function CSS3DText({ children, delay, variant = 'gold', size = 'normal' }) {
     // Sizing: Responsive for mobile
     // 'large' on mobile -> text-sm, on desktop -> 2xl/4xl
     // 'normal' on mobile -> text-xs, on desktop -> lg/2xl
-    const fontSize = size === 'large' ? 'text-sm md:text-2xl lg:text-4xl' : 'text-xs md:text-lg lg:text-2xl'
+    const fontSize = size === 'large' ? 'text-base md:text-2xl lg:text-4xl' : 'text-sm md:text-lg lg:text-2xl'
 
     // Unifying to Gold based on user feedback
     const colorClass = 'text-liquid-gold'
@@ -55,7 +55,7 @@ export function AboutMeV2() {
                     <div className="perspective-[1000px] space-y-16 md:space-y-24 text-center mb-48">
                         <div>
                             {/* Title - Responsive size */}
-                            <h2 className="text-2xl md:text-6xl lg:text-7xl font-black font-serif text-liquid-gold tracking-wider md:tracking-widest mb-10 md:mb-20 drop-shadow-[0_0_30px_rgba(212,175,55,0.5)]">
+                            <h2 className="text-3xl md:text-6xl lg:text-7xl font-black font-serif text-liquid-gold tracking-wider md:tracking-widest mb-10 md:mb-20 drop-shadow-[0_0_30px_rgba(212,175,55,0.5)]">
                                 《袖隱蒼龍》
                             </h2>
                         </div>
