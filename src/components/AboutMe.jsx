@@ -503,18 +503,30 @@ export function AboutMe() {
                         {/* Center Wrapper for Alignment */}
                         <div className="flex flex-col items-center mb-12 text-center pt-8">
                             {/* Header */}
-                            <div className="mb-8">
-                                <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white tracking-tight drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+                            <div className="mb-6 md:mb-8">
+                                <h2 className="text-xl md:text-5xl font-bold mb-4 text-white tracking-tight drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
                                     《袖隱蒼龍》
                                 </h2>
                             </div>
 
-                            {/* Content - Mobile optimized for Chinese poetry */}
-                            <div className="space-y-3 md:space-y-4 text-sm md:text-2xl text-white/80 leading-loose md:leading-relaxed font-light font-serif tracking-normal md:tracking-widest drop-shadow-md">
-                                <p className="whitespace-nowrap">寒門難鎖凌雲志，淺水焉能困蛟龍。</p>
-                                <p className="whitespace-nowrap">獨履荊棘闢乾坤，暗蓄風雷破長空。</p>
-                                <p className="whitespace-nowrap">千回敗處心不死，捲土重來氣如虹。</p>
-                                <p className="whitespace-nowrap">一朝局定輪長轉，呼風喚雨傲蒼穹。</p>
+                            {/* Content - Mobile: split at comma, Desktop: full line */}
+                            <div className="space-y-4 md:space-y-4 text-sm md:text-2xl text-white/80 leading-relaxed font-light font-serif tracking-normal md:tracking-widest drop-shadow-md">
+                                <p>
+                                    <span className="block md:inline">寒門難鎖凌雲志，</span>
+                                    <span className="block md:inline">淺水焉能困蛟龍。</span>
+                                </p>
+                                <p>
+                                    <span className="block md:inline">獨履荊棘闢乾坤，</span>
+                                    <span className="block md:inline">暗蓄風雷破長空。</span>
+                                </p>
+                                <p>
+                                    <span className="block md:inline">千回敗處心不死，</span>
+                                    <span className="block md:inline">捲土重來氣如虹。</span>
+                                </p>
+                                <p>
+                                    <span className="block md:inline">一朝局定輪長轉，</span>
+                                    <span className="block md:inline">呼風喚雨傲蒼穹。</span>
+                                </p>
                             </div>
                         </div>
 
