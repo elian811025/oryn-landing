@@ -1,4 +1,5 @@
 // --- Imports ---
+import { useState, useEffect } from 'react'
 import ProductGalaxy from './visuals/ProductGalaxy'
 
 // --- Data ---
@@ -61,8 +62,24 @@ const releasedProducts = [
 ]
 
 export function EvolutionLab() {
+    // Detect mobile/touch device
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.matchMedia('(max-width: 768px)').matches || 'ontouchstart' in window)
+        }
+        checkMobile()
+        window.addEventListener('resize', checkMobile)
+        return () => window.removeEventListener('resize', checkMobile)
+    }, [])
+
     return (
-        <section id="products" className="h-screen w-full bg-[#020202] relative overflow-hidden border-t border-white/5">
+        <section
+            id="products"
+            className="h-screen w-full bg-[#020202] relative overflow-hidden border-t border-white/5"
+            style={{ touchAction: isMobile ? 'pan-y' : 'none' }}  // Allow vertical scroll on mobile
+        >
 
             {/* Header Overlay - Absolute Position to float over Canvas */}
             <div className="absolute top-10 left-0 right-0 z-20 pointer-events-none">
@@ -79,9 +96,11 @@ export function EvolutionLab() {
             {/* The Planetary System */}
             <ProductGalaxy products={releasedProducts} />
 
-            {/* Instruction Overlay */}
+            {/* Instruction Overlay - Different text for mobile vs desktop */}
             <div className="absolute bottom-10 w-full text-center pointer-events-none z-20">
-                <p className="text-white/30 text-xs font-mono tracking-[0.3em]">DRAG TO EXPLORE • CLICK TO ENTER</p>
+                <p className="text-white/30 text-xs font-mono tracking-[0.3em]">
+                    {isMobile ? 'TAP TO ENTER • SCROLL TO CONTINUE' : 'DRAG TO EXPLORE • CLICK TO ENTER'}
+                </p>
             </div>
 
         </section>

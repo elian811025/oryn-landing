@@ -1,4 +1,4 @@
-import { useRef, useMemo, useState } from 'react'
+import { useRef, useMemo, useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Html, Text, Float, OrbitControls, Stars, Trail, Sparkles } from '@react-three/drei'
 import * as THREE from 'three'
@@ -211,6 +211,18 @@ function GalacticCore() {
 }
 
 export default function ProductGalaxy({ products }) {
+    // Detect mobile/touch device
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.matchMedia('(max-width: 768px)').matches || 'ontouchstart' in window)
+        }
+        checkMobile()
+        window.addEventListener('resize', checkMobile)
+        return () => window.removeEventListener('resize', checkMobile)
+    }, [])
+
     return (
         <div className="absolute inset-0 z-0 h-full w-full bg-black">
             <Canvas camera={{ position: [0, 30, 50], fov: 50 }}>
@@ -220,20 +232,21 @@ export default function ProductGalaxy({ products }) {
                 <Stars radius={200} depth={50} count={10000} factor={6} saturation={0} fade />
 
                 {/* 
-                   FULL 3D CONTROLS UNLOCKED 
-                   - Removed angle limits
-                   - Enabled zooming
-                   - Disabled Scroll/Pan hijack
+                   Mobile: Disable touch rotation so users can scroll past
+                   Desktop: Enable mouse rotation for interactive experience
                 */}
                 <OrbitControls
                     enableZoom={false}
                     enablePan={false}
+                    enableRotate={!isMobile}  // Disable rotation on mobile
                     autoRotate={true}
                     autoRotateSpeed={0.5}
                     enableDamping={true}
                     dampingFactor={0.05}
                     minDistance={10}
                     maxDistance={100}
+                    // These ensure touch events don't block scrolling on mobile
+                    touches={{ ONE: isMobile ? null : 1, TWO: isMobile ? null : 2 }}
                 />
 
                 <group rotation={[0, 0, 0]}>
