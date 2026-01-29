@@ -18,7 +18,7 @@ function CSS3DText({ children, delay, variant = 'gold', size = 'normal' }) {
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ delay, duration: 1.0, ease: "easeOut" }}
             // Removed 'group' class to disable hover triggers logic if any remained
-            className={`relative inline-block cursor-default select-none ${fontSize} font-serif tracking-[0.1em] leading-relaxed font-bold`}
+            className={`relative inline-block cursor-default select-none ${fontSize} font-calligraphy tracking-[0.15em] leading-relaxed`}
             style={{ transformStyle: 'preserve-3d' }}
         >
             {/* Back Layer (Shadow/Depth) */}
@@ -55,7 +55,7 @@ export function AboutMeV2() {
                     <div className="perspective-[1000px] space-y-16 md:space-y-24 text-center mb-48">
                         <div>
                             {/* Title - Responsive size */}
-                            <h2 className="text-[40px] md:text-6xl lg:text-7xl font-black font-serif text-liquid-gold tracking-wider md:tracking-widest mb-10 md:mb-20 drop-shadow-[0_0_30px_rgba(212,175,55,0.5)]">
+                            <h2 className="text-[40px] md:text-6xl lg:text-7xl font-calligraphy text-liquid-gold tracking-wider md:tracking-widest mb-10 md:mb-20 drop-shadow-[0_0_30px_rgba(212,175,55,0.5)]">
                                 《袖隱蒼龍》
                             </h2>
                         </div>
