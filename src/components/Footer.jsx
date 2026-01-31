@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import FooterGalaxy from './visuals/FooterGalaxy'
 
@@ -47,6 +48,28 @@ function ThreadsIcon() {
 }
 
 export function Footer() {
+    // Lazy load FooterGalaxy - only render when footer is in view
+    const [isInView, setIsInView] = useState(false)
+    const footerRef = useRef(null)
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsInView(true)
+                    observer.disconnect() // Only load once
+                }
+            },
+            { rootMargin: '200px' } // Start loading 200px before visible
+        )
+
+        if (footerRef.current) {
+            observer.observe(footerRef.current)
+        }
+
+        return () => observer.disconnect()
+    }, [])
+
     // Social links configuration
     const socialLinks = [
         {
@@ -74,6 +97,7 @@ export function Footer() {
 
     return (
         <motion.footer
+            ref={footerRef}
             id="footer"
             className="relative py-32 px-8 bg-[#020202] border-t border-white/5 overflow-hidden"
             initial={{ opacity: 0 }}
@@ -81,8 +105,8 @@ export function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
         >
-            {/* --- 1. The Abyss Galaxy Background --- */}
-            <FooterGalaxy />
+            {/* --- 1. The Abyss Galaxy Background (Lazy Loaded) --- */}
+            {isInView && <FooterGalaxy />}
 
             {/* Ambient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black pointer-events-none z-10" />

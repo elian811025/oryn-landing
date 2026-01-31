@@ -2,7 +2,7 @@ import { useRef, useMemo, useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Html, Text, Float, OrbitControls, Stars, Trail, Sparkles } from '@react-three/drei'
 import * as THREE from 'three'
-import { EffectComposer, Bloom, Vignette, Noise } from '@react-three/postprocessing'
+import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
 
 // --- Planet Shader Definition ---
 const vertexShader = `
@@ -128,7 +128,7 @@ function PlanetNode({ product, index, total }) {
                     onPointerOut={() => { document.body.style.cursor = 'auto'; setHovered(false) }}
                     onClick={() => window.open(product.externalLink, '_blank')}
                 >
-                    <sphereGeometry args={[2, 64, 64]} />
+                    <sphereGeometry args={[2, 32, 32]} />
                     <shaderMaterial
                         vertexShader={vertexShader}
                         fragmentShader={fragmentShader}
@@ -205,7 +205,7 @@ function GalacticCore() {
                 <sphereGeometry args={[3, 32, 32]} />
                 <meshBasicMaterial color="#D4AF37" transparent opacity={0.3} side={THREE.BackSide} />
             </mesh>
-            <Sparkles count={300} scale={15} size={3} speed={0.4} opacity={0.6} color="#D4AF37" />
+            <Sparkles count={100} scale={15} size={3} speed={0.4} opacity={0.6} color="#D4AF37" />
         </group>
     )
 }
@@ -225,11 +225,11 @@ export default function ProductGalaxy({ products }) {
 
     return (
         <div className="absolute inset-0 z-0 h-full w-full bg-black">
-            <Canvas camera={{ position: [0, 30, 50], fov: 50 }}>
+            <Canvas camera={{ position: [0, 30, 50], fov: 50 }} dpr={1} gl={{ powerPreference: 'high-performance', antialias: false }}>
                 <color attach="background" args={['#010101']} />
 
                 <ambientLight intensity={0.1} />
-                <Stars radius={200} depth={50} count={10000} factor={6} saturation={0} fade />
+                <Stars radius={200} depth={50} count={4000} factor={6} saturation={0} fade />
 
                 {/* 
                    Mobile: Disable touch rotation so users can scroll past
@@ -262,9 +262,8 @@ export default function ProductGalaxy({ products }) {
                 </group>
 
                 <EffectComposer disableNormalPass>
-                    <Bloom luminanceThreshold={0.5} mipmapBlur intensity={1.5} radius={0.5} />
+                    <Bloom luminanceThreshold={0.6} mipmapBlur intensity={0.8} radius={0.4} />
                     <Vignette eskil={false} offset={0.1} darkness={0.8} />
-                    <Noise opacity={0.06} />
                 </EffectComposer>
             </Canvas>
         </div>

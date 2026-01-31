@@ -7,7 +7,7 @@ function SpiralGalaxy() {
     const points = useRef()
 
     // Generate Spiral Galaxy Particles
-    const particleCount = 2000
+    const particleCount = 800
     const positions = useMemo(() => {
         const pos = new Float32Array(particleCount * 3)
         for (let i = 0; i < particleCount; i++) {
@@ -63,10 +63,10 @@ function SpiralGalaxy() {
 export default function FooterGalaxy() {
     return (
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-60 mix-blend-screen">
-            <Canvas camera={{ position: [0, 15, 0], fov: 60 }} gl={{ alpha: true }}>
+            <Canvas camera={{ position: [0, 15, 0], fov: 60 }} dpr={1} gl={{ alpha: true, powerPreference: 'high-performance' }}>
                 {/* Downward looking camera at the spiral */}
                 <SpiralGalaxy />
-                <Stars radius={50} depth={20} count={1000} factor={3} saturation={0} fade speed={1} />
+                <Stars radius={50} depth={20} count={400} factor={3} saturation={0} fade speed={1} />
                 <ambientLight intensity={0.5} />
             </Canvas>
         </div>
