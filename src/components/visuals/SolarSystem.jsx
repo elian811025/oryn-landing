@@ -1,7 +1,7 @@
 import { useRef, useMemo } from 'react'
 import { Canvas, useFrame, extend } from '@react-three/fiber'
 import { Stars, Sparkles, Float, Html, Line, shaderMaterial } from '@react-three/drei'
-import { EffectComposer, Bloom, Vignette, Noise } from '@react-three/postprocessing'
+import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
 import * as THREE from 'three'
 
 // --- 1. Custom Sun Shader Material ---
@@ -69,12 +69,12 @@ function Sun() {
         <group>
             {/* Core */}
             <mesh>
-                <sphereGeometry args={[2.8, 64, 64]} />
+                <sphereGeometry args={[2.8, 32, 32]} />
                 <sunMaterial ref={ref} transparent />
             </mesh>
             {/* Outer Glow Halo (Billboarding) */}
             <mesh scale={[1.4, 1.4, 1.4]}>
-                <sphereGeometry args={[2.8, 32, 32]} />
+                <sphereGeometry args={[2.8, 16, 16]} />
                 <meshBasicMaterial color="#FF6600" transparent opacity={0.15} blending={THREE.AdditiveBlending} side={THREE.BackSide} />
             </mesh>
             {/* Omni Light */}
@@ -85,7 +85,7 @@ function Sun() {
 
 // --- 2. Asteroid Belt (Instanced Mesh) ---
 function AsteroidBelt() {
-    const count = 1500
+    const count = 600 // Reduced from 1500 for performance
     const meshRef = useRef()
     const dummy = useMemo(() => new THREE.Object3D(), [])
 
@@ -132,7 +132,7 @@ function AsteroidBelt() {
 function Constellations() {
     const constellations = useMemo(() => {
         const lines = []
-        const count = 16 // More constellations
+        const count = 10 // Reduced from 16 for performance
         const radius = 90
 
         for (let i = 0; i < count; i++) {
@@ -173,7 +173,7 @@ function Constellations() {
                     />
                     {points.map((pt, j) => (
                         <mesh key={j} position={pt}>
-                            <sphereGeometry args={[0.3, 8, 8]} />
+                            <sphereGeometry args={[0.3, 6, 6]} />
                             <meshBasicMaterial color="white" toneMapped={false} /> {/* toneMapped false for Bloom */}
                         </mesh>
                     ))}
@@ -200,7 +200,7 @@ function Planet({ radius, distance, speed, color, name, hasRing, emissive = fals
     return (
         <group ref={ref}>
             <mesh>
-                <sphereGeometry args={[radius, 64, 64]} />
+                <sphereGeometry args={[radius, 32, 32]} />
                 <meshStandardMaterial
                     color={color}
                     roughness={0.6}
@@ -213,14 +213,14 @@ function Planet({ radius, distance, speed, color, name, hasRing, emissive = fals
             {/* Atmosphere Glow for Earth-likes */}
             {(name === 'Earth' || name === 'Venus') && (
                 <mesh scale={[1.05, 1.05, 1.05]}>
-                    <sphereGeometry args={[radius, 32, 32]} />
+                    <sphereGeometry args={[radius, 16, 16]} />
                     <meshBasicMaterial color={color} transparent opacity={0.2} side={THREE.BackSide} blending={THREE.AdditiveBlending} />
                 </mesh>
             )}
 
             {hasRing && (
                 <mesh rotation={[Math.PI / 2.5, 0, 0]}>
-                    <ringGeometry args={[radius * 1.4, radius * 2.2, 64]} />
+                    <ringGeometry args={[radius * 1.4, radius * 2.2, 32]} />
                     <meshStandardMaterial
                         color="#C0A080"
                         side={THREE.DoubleSide}
@@ -236,7 +236,7 @@ function Planet({ radius, distance, speed, color, name, hasRing, emissive = fals
 function OrbitTrack({ distance }) {
     return (
         <mesh rotation={[Math.PI / 2, 0, 0]}>
-            <ringGeometry args={[distance - 0.03, distance + 0.03, 128]} />
+            <ringGeometry args={[distance - 0.03, distance + 0.03, 64]} />
             <meshBasicMaterial color="#444" transparent opacity={0.15} side={THREE.DoubleSide} />
         </mesh>
     )
@@ -290,7 +290,7 @@ function SolarSystemGroup(props) {
 export default function SolarSystem() {
     return (
         <div className="absolute inset-0 z-0 h-full w-full bg-black">
-            <Canvas camera={{ position: [0, 8, 30], fov: 40 }} dpr={[1, 1.5]} gl={{ toneMapping: THREE.ReinhardToneMapping, toneMappingExposure: 1.5 }}>
+            <Canvas camera={{ position: [0, 8, 30], fov: 40 }} dpr={[1, 1]} frameloop="always" gl={{ toneMapping: THREE.ReinhardToneMapping, toneMappingExposure: 1.5, powerPreference: 'high-performance' }}>
                 <color attach="background" args={['#010101']} />
 
                 {/* Lights */}
@@ -299,16 +299,15 @@ export default function SolarSystem() {
                 {/* Scene Content */}
                 <SolarSystemGroup position={[-14, -8, -6]} />
                 <Constellations />
-                <Stars radius={120} depth={60} count={8000} factor={6} saturation={0} fade speed={0.5} />
+                <Stars radius={120} depth={60} count={3500} factor={5} saturation={0} fade speed={0.3} />
 
                 {/* Post Processing - The "AAA" Sauce */}
-                <EffectComposer disableNormalPass>
-                    {/* Bloom: Creates the glowing sun and star effect */}
-                    <Bloom luminanceThreshold={1} mipmapBlur intensity={1.5} radius={0.6} />
+                <EffectComposer disableNormalPass multisampling={0}>
+                    {/* Bloom: Creates the glowing sun and star effect - reduced intensity */}
+                    <Bloom luminanceThreshold={1.2} mipmapBlur intensity={1.0} radius={0.4} levels={3} />
                     {/* Vignette: Focuses eyes on center/text */}
-                    <Vignette eskil={false} offset={0.1} darkness={0.9} />
-                    {/* Noise: Adds faint film grain realism */}
-                    <Noise opacity={0.05} />
+                    <Vignette eskil={false} offset={0.1} darkness={0.85} />
+                    {/* Noise removed for performance */}
                 </EffectComposer>
             </Canvas>
 
