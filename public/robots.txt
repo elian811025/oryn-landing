@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://oryn.tw/sitemap.xml
+Sitemap: https://www.oryn.tw/sitemap.xml
