@@ -36,7 +36,7 @@ function CSS3DText({ children, delay, variant = 'gold', size = 'normal' }) {
 
 export function AboutMeV2() {
     return (
-        <section id="about" className="relative py-32 px-4 md:px-0 bg-[#050505] overflow-hidden border-t border-white/5 min-h-[90vh] flex items-center justify-center">
+        <section id="about" className="relative py-8 px-4 md:px-0 bg-[#050505] overflow-hidden border-t border-white/5 h-screen flex items-center justify-center">
 
             {/* 1. The 3D Layer (Solar System) */}
             <SolarSystem />
@@ -49,10 +49,10 @@ export function AboutMeV2() {
                 viewport={{ once: true }}
                 transition={{ duration: 1.5 }}
             >
-                <div className="relative py-20 px-4 md:px-0 flex flex-col items-center justify-center min-h-[800px]">
+                <div className="relative py-4 px-4 md:px-0 flex flex-col items-center justify-center">
 
                     {/* Poem - Cinematic Layout */}
-                    <div className="perspective-[1000px] space-y-16 md:space-y-24 text-center mb-48">
+                    <div className="perspective-[1000px] space-y-10 md:space-y-16 text-center mb-8">
                         <div>
                             {/* Title - Responsive size */}
                             <h2 className="text-[40px] md:text-6xl lg:text-7xl font-calligraphy text-liquid-gold tracking-wider md:tracking-widest mb-10 md:mb-20 drop-shadow-[0_0_30px_rgba(212,175,55,0.5)]">
@@ -95,7 +95,7 @@ export function AboutMeV2() {
 
 
                     {/* Signature */}
-                    <div className="absolute bottom-10 right-8 md:right-20 text-right opacity-80 z-20">
+                    <div className="absolute bottom-8 right-4 md:right-8 text-right opacity-80 z-20">
                         <p className="text-sm font-mono text-[#D4AF37] mb-2 tracking-[0.5em] uppercase">Authorized_By</p>
                         <p className="text-4xl md:text-5xl font-bold text-white tracking-[0.2em] drop-shadow-lg">ORYN</p>
                         <p className="text-sm text-white/50 mt-2 font-mono tracking-widest">影子建築師</p>

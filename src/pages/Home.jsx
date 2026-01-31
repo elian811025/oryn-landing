@@ -1,6 +1,6 @@
 import { Hero } from '../components/Hero'
 import { MessageBoard } from '../components/MessageBoard'
-import { AboutMeV2 } from '../components/AboutMeV2'
+import { DimensionPortal } from '../components/DimensionPortal'
 import { EvolutionLab } from '../components/EvolutionLab'
 import { Footer } from '../components/Footer'
 
@@ -13,8 +13,8 @@ function Home() {
             {/* 2. Message Board (互動中心) */}
             <MessageBoard />
 
-            {/* 3. Developer Intro (開發者介紹) */}
-            <AboutMeV2 />
+            {/* 3. Dimension Portal - Links to the Poem page */}
+            <DimensionPortal />
 
             {/* 4. Released Products (已完成產品) */}
             <EvolutionLab />

@@ -1,7 +1,7 @@
 import { useRef, useMemo } from 'react'
 import { Canvas, useFrame, extend } from '@react-three/fiber'
 import { Stars, Sparkles, Float, Html, Line, shaderMaterial } from '@react-three/drei'
-import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
+import { EffectComposer, Bloom, Vignette, Noise, ChromaticAberration, GodRays } from '@react-three/postprocessing'
 import * as THREE from 'three'
 
 // --- 1. Custom Sun Shader Material ---
@@ -67,25 +67,38 @@ function Sun() {
 
     return (
         <group>
-            {/* Core */}
+            {/* Core - High Detail */}
             <mesh>
-                <sphereGeometry args={[2.8, 32, 32]} />
+                <sphereGeometry args={[2.8, 64, 64]} />
                 <sunMaterial ref={ref} transparent />
             </mesh>
-            {/* Outer Glow Halo (Billboarding) */}
-            <mesh scale={[1.4, 1.4, 1.4]}>
-                <sphereGeometry args={[2.8, 16, 16]} />
-                <meshBasicMaterial color="#FF6600" transparent opacity={0.15} blending={THREE.AdditiveBlending} side={THREE.BackSide} />
+            {/* Inner Glow */}
+            <mesh scale={[1.15, 1.15, 1.15]}>
+                <sphereGeometry args={[2.8, 32, 32]} />
+                <meshBasicMaterial color="#FFAA00" transparent opacity={0.3} blending={THREE.AdditiveBlending} side={THREE.BackSide} />
             </mesh>
-            {/* Omni Light */}
-            <pointLight intensity={3} color="#FFD700" distance={100} decay={1.5} />
+            {/* Outer Glow Halo */}
+            <mesh scale={[1.4, 1.4, 1.4]}>
+                <sphereGeometry args={[2.8, 32, 32]} />
+                <meshBasicMaterial color="#FF6600" transparent opacity={0.2} blending={THREE.AdditiveBlending} side={THREE.BackSide} />
+            </mesh>
+            {/* Ultra Outer Glow */}
+            <mesh scale={[1.8, 1.8, 1.8]}>
+                <sphereGeometry args={[2.8, 16, 16]} />
+                <meshBasicMaterial color="#FF4400" transparent opacity={0.1} blending={THREE.AdditiveBlending} side={THREE.BackSide} />
+            </mesh>
+            {/* Golden Sparkles around sun */}
+            <Sparkles count={200} scale={[12, 12, 12]} size={3} speed={0.4} color="#FFD700" />
+            {/* Omni Light - Boosted */}
+            <pointLight intensity={5} color="#FFD700" distance={150} decay={1.2} />
+            <pointLight intensity={2} color="#FF6600" distance={80} decay={2} />
         </group>
     )
 }
 
 // --- 2. Asteroid Belt (Instanced Mesh) ---
 function AsteroidBelt() {
-    const count = 600 // Reduced from 1500 for performance
+    const count = 2500 // MAXIMUM ASTEROIDS!
     const meshRef = useRef()
     const dummy = useMemo(() => new THREE.Object3D(), [])
 
@@ -132,7 +145,7 @@ function AsteroidBelt() {
 function Constellations() {
     const constellations = useMemo(() => {
         const lines = []
-        const count = 10 // Reduced from 16 for performance
+        const count = 20 // More constellations for epic sky
         const radius = 90
 
         for (let i = 0; i < count; i++) {
@@ -290,7 +303,7 @@ function SolarSystemGroup(props) {
 export default function SolarSystem() {
     return (
         <div className="absolute inset-0 z-0 h-full w-full bg-black">
-            <Canvas camera={{ position: [0, 8, 30], fov: 40 }} dpr={[1, 1]} frameloop="always" gl={{ toneMapping: THREE.ReinhardToneMapping, toneMappingExposure: 1.5, powerPreference: 'high-performance' }}>
+            <Canvas camera={{ position: [0, 8, 30], fov: 40 }} dpr={[1, 2]} frameloop="always" gl={{ toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.8, powerPreference: 'high-performance', antialias: true }}>
                 <color attach="background" args={['#010101']} />
 
                 {/* Lights */}
@@ -299,15 +312,21 @@ export default function SolarSystem() {
                 {/* Scene Content */}
                 <SolarSystemGroup position={[-14, -8, -6]} />
                 <Constellations />
-                <Stars radius={120} depth={60} count={3500} factor={5} saturation={0} fade speed={0.3} />
+                <Stars radius={150} depth={80} count={12000} factor={6} saturation={0.1} fade speed={0.5} />
 
-                {/* Post Processing - The "AAA" Sauce */}
-                <EffectComposer disableNormalPass multisampling={0}>
-                    {/* Bloom: Creates the glowing sun and star effect - reduced intensity */}
-                    <Bloom luminanceThreshold={1.2} mipmapBlur intensity={1.0} radius={0.4} levels={3} />
-                    {/* Vignette: Focuses eyes on center/text */}
-                    <Vignette eskil={false} offset={0.1} darkness={0.85} />
-                    {/* Noise removed for performance */}
+                {/* Extra Sparkle Layer */}
+                <Sparkles count={300} scale={[100, 100, 100]} size={2} speed={0.3} color="#FFFFFF" opacity={0.5} />
+
+                {/* Post Processing - MAXIMUM SAUCE */}
+                <EffectComposer disableNormalPass multisampling={4}>
+                    {/* Bloom: EPIC GLOW */}
+                    <Bloom luminanceThreshold={0.5} mipmapBlur intensity={2.5} radius={0.8} levels={5} />
+                    {/* Chromatic Aberration for cinematic feel */}
+                    <ChromaticAberration offset={[0.002, 0.002]} radialModulation={true} modulationOffset={0.5} />
+                    {/* Vignette: Cinematic border */}
+                    <Vignette eskil={false} offset={0.05} darkness={1.0} />
+                    {/* Film Grain */}
+                    <Noise opacity={0.08} />
                 </EffectComposer>
             </Canvas>
 
