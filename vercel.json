@@ -1,17 +1,4 @@
 {
-    "redirects": [
-        {
-            "source": "/:path*",
-            "has": [
-                {
-                    "type": "host",
-                    "value": "www.oryn.tw"
-                }
-            ],
-            "destination": "https://oryn.tw/:path*",
-            "permanent": true
-        }
-    ],
     "rewrites": [
         {
             "source": "/api/(.*)",
