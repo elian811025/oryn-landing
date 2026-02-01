@@ -50,6 +50,16 @@ const portalStyles = `
     0% { background-position: 0% 0%; }
     100% { background-position: 0% 200%; }
 }
+@keyframes cyanPulse {
+    0%, 100% { 
+        box-shadow: 0 0 30px rgba(6, 182, 212, 0.6), 0 0 60px rgba(6, 182, 212, 0.3), 0 0 100px rgba(6, 182, 212, 0.1);
+        transform: scale(1);
+    }
+    50% { 
+        box-shadow: 0 0 50px rgba(6, 182, 212, 0.8), 0 0 100px rgba(6, 182, 212, 0.5), 0 0 150px rgba(6, 182, 212, 0.2);
+        transform: scale(1.02);
+    }
+}
 `
 
 export function DimensionPortal() {
@@ -321,6 +331,120 @@ export function DimensionPortal() {
                             </p>
                         </motion.div>
                     </a>
+
+                    {/* ===== 夥伴招募 - Cyan Tech Portal ===== */}
+                    <Link to="/recruitment" className="inline-block group">
+                        <motion.div
+                            className="relative w-32 h-32 md:w-40 md:h-40 mx-auto cursor-pointer"
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            whileHover={{ scale: 1.12 }}
+                            whileTap={{ scale: 0.95 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        >
+                            {/* Massive Outer Glow - Cyan */}
+                            <div
+                                className="absolute -inset-16 blur-3xl"
+                                style={{
+                                    background: 'radial-gradient(circle at center, rgba(6, 182, 212, 0.4) 0%, rgba(8, 145, 178, 0.2) 40%, transparent 70%)',
+                                    animation: 'cyanPulse 3s ease-in-out infinite'
+                                }}
+                            />
+
+                            {/* Tech Energy Rings */}
+                            <div
+                                className="absolute -inset-4 rounded-full"
+                                style={{
+                                    border: '1px solid rgba(6, 182, 212, 0.3)',
+                                    animation: 'vortexSpin 20s linear infinite'
+                                }}
+                            />
+                            <div
+                                className="absolute -inset-2 rounded-full"
+                                style={{
+                                    border: '2px solid rgba(6, 182, 212, 0.4)',
+                                    borderStyle: 'dashed',
+                                    animation: 'vortexSpinReverse 15s linear infinite'
+                                }}
+                            />
+                            <div
+                                className="absolute inset-0 rounded-full"
+                                style={{
+                                    background: 'conic-gradient(from 0deg, transparent, rgba(6, 182, 212, 0.3), transparent, rgba(8, 145, 178, 0.2), transparent)',
+                                    animation: 'vortexSpin 8s linear infinite'
+                                }}
+                            />
+
+                            {/* Main Portal Frame - Glowing Cyan */}
+                            <div
+                                className="absolute inset-4 rounded-full"
+                                style={{
+                                    background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.8) 0%, rgba(8, 145, 178, 0.6) 50%, rgba(6, 182, 212, 0.8) 100%)',
+                                    padding: '3px',
+                                    boxShadow: '0 0 30px rgba(6, 182, 212, 0.6), 0 0 60px rgba(6, 182, 212, 0.3), inset 0 0 20px rgba(6, 182, 212, 0.3)'
+                                }}
+                            >
+                                {/* Inner Void with Tech Energy */}
+                                <div
+                                    className="w-full h-full rounded-full overflow-hidden relative"
+                                    style={{ background: 'radial-gradient(circle at center, #0a1a2e 0%, #051018 50%, #020810 100%)' }}
+                                >
+                                    {/* Swirling Tech Mist */}
+                                    <div
+                                        className="absolute inset-0"
+                                        style={{
+                                            background: 'conic-gradient(from 0deg at 50% 50%, transparent, rgba(6, 182, 212, 0.4), transparent, rgba(139, 92, 246, 0.2), transparent)',
+                                            animation: 'vortexSpin 5s linear infinite'
+                                        }}
+                                    />
+                                    <div
+                                        className="absolute inset-4"
+                                        style={{
+                                            background: 'conic-gradient(from 90deg at 50% 50%, transparent, rgba(6, 182, 212, 0.35), transparent, rgba(139, 92, 246, 0.25), transparent)',
+                                            animation: 'vortexSpinReverse 4s linear infinite'
+                                        }}
+                                    />
+
+                                    {/* Tech Core */}
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <div
+                                            className="w-10 h-10 rounded-full"
+                                            style={{
+                                                background: 'radial-gradient(circle at 30% 30%, #22d3ee, #06b6d4, #0891b2)',
+                                                boxShadow: '0 0 30px rgba(6, 182, 212, 0.8), 0 0 60px rgba(6, 182, 212, 0.5)',
+                                                animation: 'coreGlow 2.5s ease-in-out infinite'
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Orbiting Energy Sparks */}
+                            <div className="absolute inset-0" style={{ animation: 'vortexSpin 10s linear infinite' }}>
+                                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-cyan-400 rounded-full" style={{ boxShadow: '0 0 10px rgba(6, 182, 212, 1), 0 0 20px rgba(6, 182, 212, 0.6)' }} />
+                            </div>
+                            <div className="absolute inset-0" style={{ animation: 'vortexSpinReverse 8s linear infinite' }}>
+                                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-purple-400 rounded-full" style={{ boxShadow: '0 0 8px rgba(192, 132, 252, 1)' }} />
+                            </div>
+                        </motion.div>
+
+                        {/* Portal Label */}
+                        <motion.div
+                            className="mt-8"
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.3 }}
+                        >
+                            <p className="text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-cyan-300 to-cyan-500 group-hover:from-purple-400 group-hover:via-cyan-400 group-hover:to-purple-400 transition-all duration-500 drop-shadow-[0_0_15px_rgba(6,182,212,0.5)]">
+                                夥伴招募
+                            </p>
+                            <p className="mt-2 text-sm text-white/40 group-hover:text-cyan-400/80 transition-colors font-mono tracking-wider">
+                                點擊進入 →
+                            </p>
+                        </motion.div>
+                    </Link>
                 </div>
             </div>
         </section>

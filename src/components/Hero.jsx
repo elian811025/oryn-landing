@@ -3,35 +3,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 
 // --- Shared Components for Hero ---
 
-const TechnicalGridBackground = () => {
-    return (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none bg-[#050505]">
-            {/* 1. Base Grid Layer */}
-            <div
-                className="absolute inset-0"
-                style={{
-                    backgroundImage: `linear-gradient(to right, #1a1a1a 1px, transparent 1px), linear-gradient(to bottom, #1a1a1a 1px, transparent 1px)`,
-                    backgroundSize: '60px 60px',
-                    opacity: 0.4
-                }}
-            />
 
-            {/* 2. Secondary Fine Grid */}
-            <div
-                className="absolute inset-0"
-                style={{
-                    backgroundImage: `linear-gradient(to right, #111 1px, transparent 1px), linear-gradient(to bottom, #111 1px, transparent 1px)`,
-                    backgroundSize: '15px 15px',
-                    opacity: 0.2
-                }}
-            />
-
-            {/* 3. Radial Fade */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/50" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-[#050505]" />
-        </div>
-    )
-}
 
 function NavDropdown({ label, items, isOpen, onToggle }) {
     return (
@@ -58,7 +30,7 @@ function NavDropdown({ label, items, isOpen, onToggle }) {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -5 }}
                         transition={{ duration: 0.1 }}
-                        className="absolute top-full left-0 mt-2 min-w-[180px] py-2 bg-[#0a0a0a] border border-white/20 shadow-xl"
+                        className="absolute top-full left-0 mt-2 min-w-[180px] py-2 bg-[#0a0a0a] shadow-xl"
                     >
                         {items.map((item) => (
                             <a
@@ -78,24 +50,7 @@ function NavDropdown({ label, items, isOpen, onToggle }) {
 }
 
 function MobileMenu({ isOpen, onClose }) {
-    const menuItems = [
-        {
-            section: '關於我們', items: [
-                { label: '開發者介紹', href: '#about' },
-                { label: '產品區', href: '#products' },
-            ]
-        },
-        {
-            section: '留言板', items: [
-                { label: '來聊聊天 / 聽聽你的想法', href: '#messages' },
-            ]
-        },
-        {
-            section: null, items: [
-                { label: '聊聊天', href: '#footer' },
-            ]
-        },
-    ]
+    const menuItems = []
 
     return (
         <AnimatePresence>
@@ -154,35 +109,15 @@ function MobileMenu({ isOpen, onClose }) {
 }
 
 export function Hero() {
-    const [openDropdown, setOpenDropdown] = useState(null)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const scrollRef = useRef(null)
     const { scrollYProgress } = useScroll({ target: scrollRef, offset: ["start start", "end start"] })
     const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
 
-    const aboutItems = [
-        { label: '開發者介紹', href: '#about' },
-        { label: '產品區', href: '#products' },
-    ]
-
-    const labItems = [
-        { label: '來聊聊天 / 聽聽你的想法', href: '#messages' },
-    ]
-
-    const handleDropdownToggle = (name) => {
-        setOpenDropdown(openDropdown === name ? null : name)
-    }
-
-    const handleNavClick = () => {
-        setOpenDropdown(null)
-    }
-
     return (
         <div ref={scrollRef} className="min-h-screen relative overflow-hidden flex flex-col bg-[#050505]">
-            <TechnicalGridBackground />
-
             {/* Navbar */}
-            <nav className="relative z-20 flex items-center justify-between px-8 py-6 max-w-7xl mx-auto w-full border-b border-white/5">
+            <nav className="relative z-20 flex items-center justify-between px-8 py-6 max-w-7xl mx-auto w-full">
                 <motion.img
                     src="/logo.png" alt="Oryn" className="h-8 w-auto opacity-80"
                     initial={{ opacity: 0, x: -20 }} animate={{ opacity: 0.8, x: 0 }} transition={{ duration: 0.6 }}
@@ -194,19 +129,7 @@ export function Hero() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <NavDropdown
-                        label="關於我們"
-                        items={aboutItems}
-                        isOpen={openDropdown === 'about'}
-                        onToggle={() => handleDropdownToggle('about')}
-                    />
-                    <NavDropdown
-                        label="留言板"
-                        items={labItems}
-                        isOpen={openDropdown === 'lab'}
-                        onToggle={() => handleDropdownToggle('lab')}
-                    />
-
+                    {/* 導航連結區域 */}
                 </motion.div>
 
                 <button
@@ -227,16 +150,6 @@ export function Hero() {
                     className="max-w-4xl mx-auto"
                     style={{ opacity }}
                 >
-                    {/* System Badge */}
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-                        <div className="inline-flex items-center gap-2 px-3 py-1 mb-8 border border-white/20 bg-white/5">
-                            <span className="w-1.5 h-1.5 bg-emerald-500"></span>
-                            <span className="text-[10px] font-mono text-white/60 tracking-[0.2em] uppercase">
-                                ORYN 核心系統 [ORYN_CORE]
-                            </span>
-                        </div>
-                    </motion.div>
-
                     {/* Main Headline */}
                     <motion.h1
                         className="text-4xl md:text-6xl font-bold mb-8 leading-tight tracking-tight text-white"
@@ -270,11 +183,7 @@ export function Hero() {
             </main>
 
             {/* Bottom Tech Decoration */}
-            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-            <div className="absolute bottom-0 left-8 p-4 font-mono text-[10px] text-white/20 hidden md:block">
-                SYS_VER: 2.0.4<br />
-                LATENCY: 12ms
-            </div>
+
         </div>
     )
 }
