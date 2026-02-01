@@ -59,16 +59,6 @@ export function DimensionPortal() {
             <style>{portalStyles}</style>
 
             <div className="max-w-6xl mx-auto text-center">
-                {/* Title */}
-                <motion.h2
-                    className="text-2xl md:text-3xl font-calligraphy text-white/80 mb-12"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                >
-                    探索創作者的內心世界
-                </motion.h2>
-
                 {/* Portals Container - Side by Side */}
                 <div className="flex flex-col md:flex-row items-center justify-center gap-16 md:gap-28">
 
